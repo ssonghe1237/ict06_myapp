@@ -18,7 +18,6 @@
       
       <hr>
       공지
-  	
       
       <%@ include file="../../common/footer.jsp" %>
    </div>
