@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <header>
 	<!-- header 시작 -->
@@ -9,7 +10,7 @@
 	
 	    <!-- 로고 -->
 	    <a class="navbar-brand fw-bold me-3" href="${path}/main.do">
-	      Navbar
+	      맛침내
 	    </a>
 	
 	    <!-- 모바일 토글 -->
@@ -57,6 +58,10 @@
 			        <a class="btn btn-primary btn-sm px-3" href="${path}/login.do">로그인</a>
 			    </c:when>
 		        
+		  		<c:when test="${fn:startsWith(sessionScope.sessionID, 'admin')}">
+			        <a class="btn btn-outline-secondary btn-sm" href="${path}/logout.do">로그아웃</a>
+			        <a class="btn btn-primary btn-sm px-3" href="${path}/adminHome.ad">관리자Home</a>
+			    </c:when>
 		        
 			    <c:otherwise>
 			        <a class="btn btn-outline-secondary btn-sm" href="${path}/logout.do">로그아웃</a>

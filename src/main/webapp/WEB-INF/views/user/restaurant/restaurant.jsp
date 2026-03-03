@@ -28,7 +28,7 @@
 	  
 	  <!-- 관련 SQL -->
 		SQL 쿼리 : 내 주변 맛집 탐색
-		<pre>
+		<pre style="background-color:#f8f9fa; border:1px solid #dee2e6; border-left:4px solid #01D281;">
 			<code>
 			<c:out value="
 			SELECT *

@@ -28,8 +28,14 @@
 		SQL 쿼리 : 커뮤니티 게시글 수정 사항 update 
 		<pre>
 			<code>
-			<c:out value="
-			" />
+				UPDATE BOARD
+				SET 
+				    title = #'{'title},
+				    content = #'{'content},
+				    created_at = SYSDATE
+				WHERE 
+				    board_id = #'{'board_id}
+				    AND user_id = #'{'sessionID}
 			</code>
 		</pre>
       

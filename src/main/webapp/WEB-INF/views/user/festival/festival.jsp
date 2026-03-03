@@ -19,6 +19,41 @@
       <hr>
       축제
       
+      	  <!-- 관련 SQL -->
+		SQL 쿼리 : 내 주변 축제 탐색
+		<pre style="background-color:#f8f9fa; border:1px solid #dee2e6; border-left:4px solid #01D281;">
+			<code>
+			<c:out value="
+			SELECT *
+			    FROM (
+			        SELECT
+			            p.place_id,
+			            p.name,
+			            p.address,
+			            p.latitude,
+			            p.longitude,
+			
+			            (
+			                6371 * ACOS(
+			                    COS(RADIANS(#${'{'}userLat})) *
+			                    COS(RADIANS(p.latitude)) *
+			                    COS(RADIANS(p.longitude) - RADIANS(#${'{'}userLng})) +
+			                    SIN(RADIANS(#${'{'}userLat})) *
+			                    SIN(RADIANS(p.latitude))
+			                )
+			            ) AS distance_km
+			
+			        FROM PLACE p
+			        WHERE p.place_type = 'FEST'
+			          AND p.latitude BETWEEN #${'{'}minLat} AND #${'{'}maxLat}
+			          AND p.longitude BETWEEN #${'{'}minLng} AND #${'{'}maxLng}
+			    )
+			    WHERE distance_km <= #${'{'}radius}
+			    ORDER BY distance_km ASC
+			" />
+			</code>
+		</pre>
+		
       <%@ include file="../../common/footer.jsp" %>
    </div>
 </body>

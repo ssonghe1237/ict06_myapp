@@ -160,7 +160,7 @@
 							</div>
 							
 							<div class="card-tools">
-								<form action="${path}/admin/reservation/list" method="get" class="input-group input-group-sm" style="width: 250px;">
+								<form action="${path}/getReservationList.ad" method="get" class="input-group input-group-sm" style="width: 250px;">
 									<input type="text" name="keyword" class="form-control border-0 bg-light shadow-none"
 										style="border-radius: 8px 0 0 8px;"
 										value="${param.keyword}" placeholder="ID 또는 예약번호">
@@ -277,6 +277,16 @@
 					</tr>
 				</tbody>
 			</table>
+			<pre>
+				<code>
+			SELECT R.*,
+				P.NAME,
+				P.ADDRESS
+			FROM RESERVATION R
+			JOIN PLACE P ON R.PLACE_ID = P.PLACE_ID
+			WHERE R.RESERVATION_ID = #${'{'}reservation_id}	
+				</code>
+			</pre>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -342,6 +352,16 @@
 					</tr>
 				</tbody>
 			</table>
+			<pre>
+				<code>
+				SELECT R.*,
+					P.NAME,
+					P.ADDRESS
+				FROM RESERVATION R
+				JOIN PLACE P ON R.PLACE_ID = P.PLACE_ID
+				WHERE R.RESERVATION_ID = #${'{'}reservation_id}	
+				</code>
+			</pre>
 		</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" onclick="updateReservationStatus()">변경사항 저장</button>
@@ -351,6 +371,23 @@
 	</div>
 </div>
 <!-- 예약 수정 modal 끝 -->
+
+	<!-- 관련 SQL -->
+	SQL 쿼리 : 예약목록 전체 조회
+	<pre>
+		<code>
+			SELECT * FROM RESERVATION
+			<where>
+				<if test="keyword != null and keyword != ''">
+					(user_id LIKE '%'||#${'{'}keyword}||'%' OR reservation_id LIKE '%'||#${'{'}keyword}||'%')
+				</if>
+				<if test="status != null and status != ''">
+					AND status = #${'{'}status}
+				</if>
+			</where>
+			ORDER BY created_at DESC
+		</code>
+	</pre>
 
 <%@ include file="/WEB-INF/views/common/footer_script.jsp" %>
 <script src="${path}/resources/js/admin/reservation.js"></script>

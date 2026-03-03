@@ -29,6 +29,17 @@
 		<pre>
 			<code>
 			<c:out value="
+				INSERT INTO BOARD(title, content, created_at, board_id, user_id)
+				VALUES (
+				    title = #'{'title},
+				    content = #'{'content},
+				    created_at = SYSDATE
+				    board_id = #'{'board_id},
+				    user_id = #'{'sessionID} 
+					)
+				WHERE 
+				    board_id = #'{'board_id}
+				    AND user_id = #'{'sessionID}
 			" />
 			</code>
 		</pre>

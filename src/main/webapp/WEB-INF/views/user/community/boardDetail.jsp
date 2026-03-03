@@ -29,6 +29,16 @@
 		<pre>
 			<code>
 			<c:out value="
+			SELECT 
+			    b.user_id,
+			    b.title,
+			    b.content,
+			    b.name AS user_name,
+			    b.view_count,
+			    TO_CHAR(b.created_at, 'YYYY-MM-DD HH24:MI') AS reg_date
+			FROM BOARD b
+			JOIN MEMBER m ON b.user_id = m.user_id
+			WHERE b.board_id = #'{'board_id'}' AND b.status = 'display'
 			" />
 			</code>
 		</pre>

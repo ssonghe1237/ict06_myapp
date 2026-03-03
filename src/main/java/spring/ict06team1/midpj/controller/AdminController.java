@@ -66,6 +66,7 @@ public class AdminController {
 	//2-1. 예약상태 변경
 //	@PostMapping("/admin/reservation/updateStatus")
 	@PostMapping("/updateReservationStatus.ad")
+	@ResponseBody
 	public String updateReservationStatus(HttpServletRequest request, HttpServletResponse response, Model model)
 			throws ServletException, IOException {
 //			logger.info("[url => /admin/reservation/updateStatus]");

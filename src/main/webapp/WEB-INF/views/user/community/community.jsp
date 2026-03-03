@@ -30,11 +30,22 @@
       
       <!-- 관련 SQL -->
 		SQL 쿼리 : 커뮤니티 게시글 목록 로드 쿼리 (공지, 이벤트, 회원 게시글)
-		<pre>
+		<pre style="background-color:#f8f9fa; border:1px solid #dee2e6; border-left:4px solid #01D281;">
 			<code>
-			<c:out value="
+				SELECT *
+				FROM (
+				    SELECT 
+				        notice_id,
+				        title,
+				        admin_id,
+				        view_count,
+				        created_at,
+				    FROM NOTICE
+				    WHERE is_deleted = 'N'
+				)
+				ORDER BY 
+				    notice_id DESC
 			" />
-			</code>
 		</pre>
       
       <%@ include file="../../common/footer.jsp" %>
