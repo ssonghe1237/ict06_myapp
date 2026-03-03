@@ -96,7 +96,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="${path}/admin/reservation/list" class="nav-link">
+							<a href="${path}/getReservationList.ad" class="nav-link">
                     			<i class="nav-icon bi bi-chevron-right"></i>
                     			<p>예약내역</p>
                     		</a>

@@ -5,13 +5,13 @@
  //status 필터 클릭 시
  function handleFilterChange(val) {
  	const status = val;
- 	location.href = path + "/admin/reservation/list?status=" + status;
+ 	location.href = path + "/getReservationList.ad?status=" + status;
  }
  
  //상세보기 버튼 클릭 시
  function viewDetail(resId) {
  	$.ajax({
- 		url: path + '/admin/reservation/detail',
+ 		url: path + '/getReservationDetail.ad',
  		type: 'get',
  		data: 'resId=' + resId,
  		dataType: 'json',
@@ -46,7 +46,7 @@
 	console.log("수정 버튼 클릭 - ID: " + resId);
 	
 	$.ajax({
-		url: path + '/admin/reservation/detail',
+		url: path + '/getReservationDetail.ad',
 		type: 'get',
 		data: 'resId=' + resId,
 		dataType: 'json',
@@ -86,7 +86,7 @@
  	return;
  	
  	$.ajax({
- 		url: path + '/admin/reservation/updateStatus',
+ 		url: path + '/updateReservationStatus.ad',
  		type: 'post',
  		data: {
  			"resId": resId,

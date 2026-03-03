@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <header>
 	<!-- header 시작 -->
@@ -9,7 +10,7 @@
 	
 	    <!-- 로고 -->
 	    <a class="navbar-brand fw-bold me-3" href="${path}/main.do">
-	      Navbar
+	      맛침내
 	    </a>
 	
 	    <!-- 모바일 토글 -->
@@ -30,10 +31,10 @@
 	
 	      <!-- 메뉴 -->
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-2">
-	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/restaurant.do">맛집</a></li>
-	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/accommodation.do">숙소</a></li>
-	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/festival.do">축제</a></li>
-	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/community.do">커뮤니티</a></li>
+	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/restaurant.rs">맛집</a></li>
+	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/accommodation.ac">숙소</a></li>
+	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/festival.fe">축제</a></li>
+	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/community.co">커뮤니티</a></li>
 			
 	        <!-- 더보기 드롭다운 -->
 	        <li class="nav-item dropdown">
@@ -43,7 +44,7 @@
 	          <ul class="dropdown-menu">
 	            <li><a class="dropdown-item" href="${path}/FAQ.do">FAQ</a></li>
 	            <li><a class="dropdown-item" href="${path}/inquiry.do">1:1 문의</a></li>
-	            <li><a class="dropdown-item" href="${path}/notice.do">공지</a></li>
+	            <%-- <li><a class="dropdown-item" href="${path}/notice.do">공지</a></li> --%> <!-- 커뮤니티 게시판의 공지만 쓰기로 했던 것으로 기억하여 주석처리 -->
 	          </ul>
 	        </li>
 	      </ul>
@@ -57,10 +58,14 @@
 			        <a class="btn btn-primary btn-sm px-3" href="${path}/login.do">로그인</a>
 			    </c:when>
 		        
+		  		<c:when test="${fn:startsWith(sessionScope.sessionID, 'admin')}">
+			        <a class="btn btn-outline-secondary btn-sm" href="${path}/logout.do">로그아웃</a>
+			        <a class="btn btn-primary btn-sm px-3" href="${path}/adminHome.ad">관리자Home</a>
+			    </c:when>
 		        
 			    <c:otherwise>
 			        <a class="btn btn-outline-secondary btn-sm" href="${path}/logout.do">로그아웃</a>
-			        <a class="btn btn-primary btn-sm px-3" href="${path}/main.do">마이 페이지</a>
+			        <a class="btn btn-primary btn-sm px-3" href="${path}/myPageHome.do">마이 페이지</a>
 			    </c:otherwise>
 			</c:choose>
 	      </div>

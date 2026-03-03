@@ -64,26 +64,40 @@
         <!--begin::Container-->
         <div class="container-fluid">
           <!--begin::Start Navbar Links-->
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
-                <i class="bi bi-list"></i>
-              </a>
-            </li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
-          </ul>
-          <!--end::Start Navbar Links-->
-          <!--begin::End Navbar Links-->
-          <ul class="navbar-nav ms-auto">
-            <!--begin::Navbar Search-->
-            <li class="nav-item">
-              <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="bi bi-search"></i>
-              </a>
-            </li>
-            <!--end::Navbar Search-->
-            <!--begin::Messages Dropdown Menu-->
+			<ul class="navbar-nav">
+				<li class="nav-item">
+				<a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+					<i class="fas fa-bars"></i>
+				</a>
+				</li>
+				<li class="nav-item d-none d-md-block">
+					<a href="${path}/adminHome.ad" class="nav-link">ADMIN DASHBOARD</a>
+				</li>
+			</ul>
+		<!--end::Start Navbar Links-->
+		<!--begin::End Navbar Links-->
+		<ul class="navbar-nav ms-auto">
+			<!--begin::Navbar Search-->
+			<li class="nav-item me-2">
+				<a href="${path}/main.do" class="nav-link btn btn-outline-primary btn-sm px-3"
+					style="border-radius:20px; font-size:0.85rem; border-color:#01D281; color:#01D281;">
+					<i class="fas fa-external-link-alt me-1"></i>User Home
+				</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					<i class="fas fa-bell"></i>
+				</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link text-danger" href="${path}/logout.do" title="로그아웃">
+					<i class="fas fa-power-off"></i>LOGOUT
+				</a>
+			</li>
+			<!--end::Navbar Search-->
+			<!--begin::Messages Dropdown Menu-->
             <li class="nav-item dropdown">
               <a class="nav-link" data-bs-toggle="dropdown" href="#">
                 <i class="bi bi-chat-text"></i>
@@ -216,7 +230,7 @@
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
-                <span class="d-none d-md-inline">Alexander Pierce</span>
+                <span class="d-none d-md-inline">${sessionScope.sessionID}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::User Image-->
