@@ -24,57 +24,27 @@
 	  </div>
 	  
 	  <!-- 관련 SQL -->
-		SQL 쿼리 : 베스트 맛집 랭킹 쿼리
+		SQL 쿼리 : 베스트 맛집 랭킹 쿼리 (TOP6). 별점순 
 		<pre>
 			<code>
-			<c:out value="
+			<c:out escapeXml="true" value="
 				SELECT *
 				FROM (
 				    SELECT
-				        p.place_id AS restaurant_id,
-				        p.description,
-				        p.phone,
-				        p.category,
-				        p.status,
-				
-				        AVG(r.rating) AS avg_rating,
-				        COUNT(r.review_id) AS review_count,
-				
-				        (
-				            6371 * ACOS(
-				                COS(RADIANS(?)) *
-				                COS(RADIANS(p.latitude)) *
-				                COS(RADIANS(p.longitude) - RADIANS(?)) +
-				                SIN(RADIANS(?)) *
-				                SIN(RADIANS(p.latitude))
-				            )
-				        ) AS distance_km
-				
-				    FROM PLACE p
-				    LEFT JOIN REVIEW r
-				        ON p.place_id = r.place_id
-				        AND r.status = 'ACTIVE'
-				
-				    WHERE p.place_type = 'REST'
-				      AND p.status = 'OPEN'
-				      AND p.latitude BETWEEN ? AND ?
-				      AND p.longitude BETWEEN ? AND ?
-				
-				    GROUP BY
 				        p.place_id,
-				        p.description,
-				        p.phone,
-				        p.category,
-				        p.status,
-				        p.latitude,
-				        p.longitude
-				) sub
-				WHERE distance_km <= ?
-				  AND review_count > 0
-				ORDER BY avg_rating DESC, review_count DESC
-				LIMIT 10;
+				        p.name,
+				        p.address,
+				        p.image_url,
+				        NVL(ROUND(AVG(r.rating), 1), 0) AS avg_rating
+				    FROM place p
+				    LEFT JOIN review r
+				        ON r.place_id = p.place_id
+				    GROUP BY p.place_id, p.name, p.address, p.image_url
+				    ORDER BY NVL(AVG(r.rating), 0) DESC
+				)
+				WHERE ROWNUM <= 6;
 			" />
-			</code>
+			</code> 
 		</pre>
   	
       <%@ include file="../../common/footer.jsp" %>
