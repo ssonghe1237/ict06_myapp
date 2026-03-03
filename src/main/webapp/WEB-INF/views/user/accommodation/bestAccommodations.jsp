@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>맛집 페이지</title>
+<title>숙소 페이지</title>
 
 <!-- 부트스트랩 선언 + 헤더/푸터 -->
 <%@ include file="/WEB-INF/views/common/bootstrapSettings.jsp" %>
@@ -15,29 +15,23 @@
 <body>
    <div class="wrap">
       <%@ include file="../../common/header.jsp" %>
-      
-      <%@ include file="./restaurantMenus.jsp" %>
-      <%@ include file="./restaurantRankMenus.jsp" %>
+      <%@ include file="./accommodationMenus.jsp" %>
+      <%@ include file="./accommodationRankMenus.jsp" %>
       
       <div align="center">
-			<img src="${path}/resources/images/user/restaurant/bestRestaurants_region.png" width="100%" alt="main">
+			<img src="${path}/resources/images/user/accommodation/bestAccommodation_realTime.jpg" width="100%" alt="main">
 	  </div>
-	  
-	  <!-- 관련 SQL -->
-		SQL 쿼리 : 지역별 베스트 맛집 랭킹 쿼리
-		<pre>
+      
+		<!-- 관련 SQL -->
+		SQL 쿼리 : 베스트 숙소 랭킹 쿼리
+		<pre style="background-color:#f8f9fa; border:1px solid #dee2e6; border-left:4px solid #01D281;">
 			<code>
 			<c:out value="
-			SELECT *
-			FROM PLACE
-			WHERE place_type = 'REST'
-			  AND address LIKE CONCAT('%', ?, '%')  
-			ORDER BY view_count DESC, name ASC
-			LIMIT 10;
+			
 			" />
 			</code>
 		</pre>
-  	
+      
       <%@ include file="../../common/footer.jsp" %>
    </div>
 </body>
