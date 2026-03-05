@@ -3,10 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
- <mapper namespace="spring.ict06team1.midpj.dao.AdminDAO">  <!-- namespace="패키지명.인터페이스" -->
+ <mapper namespace="spring.ict06team1.midpj.dao.AdminDAO">
 	 <!-- 0. 매핑 -->
 	 <resultMap id="reservationMap" type="spring.ict06team1.midpj.dto.ReservationDTO">
-	 	<id property="reservation_id" column="reservation_id"/> <!-- pk -->
+	 	<id property="reservation_id" column="reservation_id"/>
 	 	<result property="user_id" column="user_id"/>
 	 	<result property="place_id" column="place_id"/>
 	 	<result property="check_in" column="check_in"/>
