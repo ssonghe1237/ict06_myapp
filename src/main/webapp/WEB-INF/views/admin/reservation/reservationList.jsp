@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/setting.jsp"%>
+<%@ include file="/WEB-INF/views/common/adminSetting.jsp" %>  <!-- 관리자용 setting 별도로 함. 주의! -->   	
 
 <!DOCTYPE html>
 <html>
@@ -133,192 +133,197 @@ body {
 <meta charset="UTF-8">
 <title>예약 내역 관리</title>
 </head>
-<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-	<!--begin::App-wrapper-->
-	<div class="app-wrapper">
-		<!--begin::Header, Sidebar-->
-		<%@ include file="/WEB-INF/views/admin/common/header.jsp"%>
-		<%@ include file="/WEB-INF/views/admin/common/sidebar.jsp"%>
-		<!--end::Header, Sidebar-->
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+		<!-- ================= HEADER ================= -->
+		<%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
 
-		<main class="app-main">
-			<div class="app-content-header py-3">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-sm-12">
-							<h3 class="mb-0 fw-bold">예약 관리</h3>
+		<!-- ================= SIDEBAR ================= -->
+		<%@ include file="/WEB-INF/views/common/adminSidebar.jsp" %>
+		
+		<!-- ================= CONTENT ================= -->
+		<div class="content-wrapper"> 
+			<main class="app-main">
+				<div class="app-content-header py-3">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="mb-0 fw-bold">예약 관리</h3>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<!--begin::App Content-->
-			<div class="app-content">
-				<div class="container-fluid">
-					<div class="card shadow-sm border-0">
-						<div class="card-header bg-white py-3">
-							<div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-								<div class="d-flex align-items-center gap-3">
-									<h3 class="card-title">전체 예약 목록</h3>
-									
-									<!--begin::보기방식 선택영역-->
-									<div class="btn-group btn-group sm" role="group" style="margin-left: 20px;">
-										<button type="button" class="btn btn-success"
-											id="viewCalBtn">
-											<i class="bi bi-calendar3 me-1"></i>캘린더
-										</button>
-										<button type="button" class="btn btn-outline-success"
-											id="viewListBtn">
-											<i class="bi bi-list-ul me-1"></i>리스트
-										</button>
-									</div>
-									<!--end::보기방식 선택영역-->
-									
-									<!--begin::필터 선택영역-->					
-									<div id="listFilters" class="d-flex gap-2">
-										<!--예약상태 필터-->
-										<select id="statusFilter"
-											class="form-select form-select-sm border-light bg-light shadow-none"
-											onchange="statusFilterChange(this.value)" style="width: 130px;">
-											<option value="">예약 상태</option>
-											<option value="RESERVED"
-												${param.status == 'RESERVED' ? 'selected':''}>확정</option>
-											<option value="PENDING"
-												${param.status == 'PENDING' ? 'selected':''}>결제대기</option>
-											<option value="CANCELLED"
-												${param.status == 'CANCELLED' ? 'selected':''}>취소</option>
-											<option value="COMPLETED"
-												${param.status == 'COMPLETED' ? 'selected':''}>이용완료</option>
-										</select>
-										<!--장소분류 필터-->
-										<select id="placeTypeFilter" class="form-select form-select-sm border-light bg-light shadow-none"
-												onchange="placeTypeFilterChange(this.value)" style="width:130px;">
-												<option value="">장소 분류</option>
-												<option value="REST" ${param.placeType == 'REST' ? 'selected' : ''}>맛집</option>
-												<option value="ACC" ${param.placeType == 'ACC' ? 'selected' : ''}>숙소</option>
-												<option value="FEST" ${param.placeType == 'FEST' ? 'selected' : ''}>축제</option>
-										</select>
-									</div>
-									<!--end::필터 선택영역-->	
-								</div>
-								
-								<!--begin::검색창-->
-								<div id="searchTool">
-									<form action="${path}/getReservationList.ad" method="get"
-										class="input-group input-group-sm" style="width: 250px;">
-										<input type="text" name="keyword"
-											class="form-control border-0 bg-light" value="${param.keyword}"
-											placeholder="ID 또는 예약번호">
-										<button type="submit" class="btn text-white" style="background-color:#01D281;">
-											<i class="bi bi-search"></i>
-										</button>
-									</form>
-								</div>
-								<!--end::검색창-->
-							</div>
-						</div>
-
-					<!--begin::리스트로 보기-->
-					<div class="card-body p-0">
-						<div id="reservationListView">
-							<div class="table-responsive">
-								<table class="table table-hover align-middle m-0" data-bs-toggle="false" style="width:100%;">
-									<thead class="table-light">
-										<tr>
-											<th class="text-center" style="width: 80px;">No.</th>
-											<th class="ps-4">사용자 ID</th>
-											<th class="text-center">분류</th>
-											<th class="text-center">인원</th>
-											<th class="text-center">예약일</th>
-											<th class="text-center">상태</th>
-											<th class="text-center" style="width: 120px;">관리</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="dto" items="${list}">
-											<tr>
-												<td class="text-center text-muted">${dto.reservation_id}</td>
-												<td class="ps-4 fw-bold">${dto.user_id}</td>
-												<td class="text-center">
-													<c:choose>
-														<c:when test="${dto.placeDTO.place_type == 'REST'}">맛집</c:when>
-														<c:when test="${dto.placeDTO.place_type == 'ACC'}">숙소</c:when>
-														<c:when test="${dto.placeDTO.place_type == 'FEST'}">축제</c:when>
-													</c:choose>
-												</td>
-												<td class="text-center">${dto.guest_count}명</td>
-												<td class="text-center"><fmt:formatDate
-														value="${dto.resDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center">
-													<c:choose>
-														<c:when test="${dto.status == 'RESERVED'}">
-															<span class="badge bg-res-success">확정</span>
-														</c:when>
-														<c:when test="${dto.status == 'PENDING'}">
-															<span class="badge bg-res-pending">결제대기</span>
-														</c:when>
-														<c:when test="${dto.status == 'CANCELLED'}">
-															<span class="badge bg-res-cancel">취소</span>
-														</c:when>
-														<c:when test="${dto.status == 'COMPLETED'}">
-															<span class="badge bg-res-secondary">이용완료</span>
-														</c:when>
-														<c:otherwise>
-															<span class="badge bg-res-secondary">${dto.status}</span>
-														</c:otherwise>
-													</c:choose>
-												</td>
-												<td class="text-center">
-													<div class="d-flex justify-content-center gap-3">
-														<a href="javascript:void(0)"
-															onclick="viewDetail('${dto.reservation_id}')"
-															class="action-icon" title="상세보기">
-															<i class="bi bi-eye"></i>
-														</a>
-														<a href="javascript:void(0)"
-															onclick="editReservation('${dto.reservation_id}')"
-															class="action-icon" title="수정">
-															<i class="bi bi-pencil-square"></i>
-														</a>
-													</div>
-												</td>
-											</tr>
-										</c:forEach>
 	
-										<c:if test="${empty list}">
+				<!--begin::App Content-->
+				<div class="app-content">
+					<div class="container-fluid">
+						<div class="card shadow-sm border-0">
+							<div class="card-header bg-white py-3">
+								<div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+									<div class="d-flex align-items-center gap-3">
+										<h3 class="card-title">전체 예약 목록</h3>
+										
+										<!--begin::보기방식 선택영역-->
+										<div class="btn-group btn-group sm" role="group" style="margin-left: 20px;">
+											<button type="button" class="btn btn-success"
+												id="viewCalBtn">
+												<i class="bi bi-calendar3 me-1"></i>캘린더
+											</button>
+											<button type="button" class="btn btn-outline-success"
+												id="viewListBtn">
+												<i class="bi bi-list-ul me-1"></i>리스트
+											</button>
+										</div>
+										<!--end::보기방식 선택영역-->
+										
+										<!--begin::필터 선택영역-->					
+										<div id="listFilters" class="d-flex gap-2">
+											<!--예약상태 필터-->
+											<select id="statusFilter"
+												class="form-select form-select-sm border-light bg-light shadow-none"
+												onchange="statusFilterChange(this.value)" style="width: 130px;">
+												<option value="">예약 상태</option>
+												<option value="RESERVED"
+													${param.status == 'RESERVED' ? 'selected':''}>확정</option>
+												<option value="PENDING"
+													${param.status == 'PENDING' ? 'selected':''}>결제대기</option>
+												<option value="CANCELLED"
+													${param.status == 'CANCELLED' ? 'selected':''}>취소</option>
+												<option value="COMPLETED"
+													${param.status == 'COMPLETED' ? 'selected':''}>이용완료</option>
+											</select>
+											<!--장소분류 필터-->
+											<select id="placeTypeFilter" class="form-select form-select-sm border-light bg-light shadow-none"
+													onchange="placeTypeFilterChange(this.value)" style="width:130px;">
+													<option value="">장소 분류</option>
+													<option value="REST" ${param.placeType == 'REST' ? 'selected' : ''}>맛집</option>
+													<option value="ACC" ${param.placeType == 'ACC' ? 'selected' : ''}>숙소</option>
+													<option value="FEST" ${param.placeType == 'FEST' ? 'selected' : ''}>축제</option>
+											</select>
+										</div>
+										<!--end::필터 선택영역-->	
+									</div>
+									
+									<!--begin::검색창-->
+									<div id="searchTool">
+										<form action="${path}/getReservationList.ad" method="get"
+											class="input-group input-group-sm" style="width: 250px;">
+											<input type="text" name="keyword"
+												class="form-control border-0 bg-light" value="${param.keyword}"
+												placeholder="ID 또는 예약번호">
+											<button type="submit" class="btn text-white" style="background-color:#01D281;">
+												<i class="bi bi-search"></i>
+											</button>
+										</form>
+									</div>
+									<!--end::검색창-->
+								</div>
+							</div>
+	
+						<!--begin::리스트로 보기-->
+						<div class="card-body p-0">
+							<div id="reservationListView">
+								<div class="table-responsive">
+									<table class="table table-hover align-middle m-0" data-bs-toggle="false" style="width:100%;">
+										<thead class="table-light">
 											<tr>
-												<td colspan="6">조회된 예약 내역이 없습니다.</td>
+												<th class="text-center" style="width: 80px;">No.</th>
+												<th class="ps-4">사용자 ID</th>
+												<th class="text-center">분류</th>
+												<th class="text-center">인원</th>
+												<th class="text-center">예약일</th>
+												<th class="text-center">상태</th>
+												<th class="text-center" style="width: 120px;">관리</th>
 											</tr>
-										</c:if>
-									</tbody>
-								</table>
+										</thead>
+										<tbody>
+											<c:forEach var="dto" items="${list}">
+												<tr>
+													<td class="text-center text-muted">${dto.reservation_id}</td>
+													<td class="ps-4 fw-bold">${dto.user_id}</td>
+													<td class="text-center">
+														<c:choose>
+															<c:when test="${dto.placeDTO.place_type == 'REST'}">맛집</c:when>
+															<c:when test="${dto.placeDTO.place_type == 'ACC'}">숙소</c:when>
+															<c:when test="${dto.placeDTO.place_type == 'FEST'}">축제</c:when>
+														</c:choose>
+													</td>
+													<td class="text-center">${dto.guest_count}명</td>
+													<td class="text-center"><fmt:formatDate
+															value="${dto.resDate}" pattern="yyyy-MM-dd" /></td>
+													<td class="text-center">
+														<c:choose>
+															<c:when test="${dto.status == 'RESERVED'}">
+																<span class="badge bg-res-success">확정</span>
+															</c:when>
+															<c:when test="${dto.status == 'PENDING'}">
+																<span class="badge bg-res-pending">결제대기</span>
+															</c:when>
+															<c:when test="${dto.status == 'CANCELLED'}">
+																<span class="badge bg-res-cancel">취소</span>
+															</c:when>
+															<c:when test="${dto.status == 'COMPLETED'}">
+																<span class="badge bg-res-secondary">이용완료</span>
+															</c:when>
+															<c:otherwise>
+																<span class="badge bg-res-secondary">${dto.status}</span>
+															</c:otherwise>
+														</c:choose>
+													</td>
+													<td class="text-center">
+														<div class="d-flex justify-content-center gap-3">
+															<a href="javascript:void(0)"
+																onclick="viewDetail('${dto.reservation_id}')"
+																class="action-icon" title="상세보기">
+																<i class="bi bi-eye"></i>
+															</a>
+															<a href="javascript:void(0)"
+																onclick="editReservation('${dto.reservation_id}')"
+																class="action-icon" title="수정">
+																<i class="bi bi-pencil-square"></i>
+															</a>
+														</div>
+													</td>
+												</tr>
+											</c:forEach>
+		
+											<c:if test="${empty list}">
+												<tr>
+													<td colspan="6">조회된 예약 내역이 없습니다.</td>
+												</tr>
+											</c:if>
+										</tbody>
+									</table>
+								</div>
+								<!--end::리스트로 보기-->
+								
+								<!--begin::pagination-->
+								<div class="py-3 border-top">
+									<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+								</div>
+								<!--end::pagination-->
 							</div>
 							<!--end::리스트로 보기-->
-							
-							<!--begin::pagination-->
-							<div class="py-3 border-top">
-								<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+	
+							<!--begin::캘린더로 보기-->
+							<div id="reservationCalendarView"
+								style="display: none; padding: 20px;">
+								<div id="calendar" class="bg-white p-3 rounded shadow-sm border" style="height:650px;"></div>
 							</div>
-							<!--end::pagination-->
+							<!--end::캘린더로 보기-->
 						</div>
-						<!--end::리스트로 보기-->
-
-						<!--begin::캘린더로 보기-->
-						<div id="reservationCalendarView"
-							style="display: none; padding: 20px;">
-							<div id="calendar" class="bg-white p-3 rounded shadow-sm border" style="height:650px;"></div>
-						</div>
-						<!--end::캘린더로 보기-->
 					</div>
 				</div>
 			</div>
-		</div>
-	</main>
-	<!--end::App-wrapper-->
+		</main>
+	</div>	
+	<!-- ================= FOOTER ================= -->
+	<footer class="main-footer">
+		<strong>Copyright &copy; 2026</strong>
+	</footer>
+	
 	</div>
-
-	<!--footer-->
-	<%@ include file="/WEB-INF/views/admin/common/footer.jsp" %>
+	<!--end::Div-wrapper-->
 
 <!-- 예약 상세보기 modal 시작 -->
 <div class="modal fade" id="resDetailModal" tabindex="-1" role="dialog"
@@ -511,6 +516,11 @@ SQL 쿼리 : 예약목록 전체 조회
 	];
 </script>
 
+<!-- ================= JS ================= -->
+<!-- path 별도로 선언해야 아래 js에서 활용 가능 -->
+<script>
+    const path = "${path}";
+</script>
 <script src="${path}/resources/js/admin/reservation.js"></script>
 <!--end::리스트/캘린더형 보기 클릭 시 전환-->
 

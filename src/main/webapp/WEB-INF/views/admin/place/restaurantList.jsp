@@ -1,86 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/views/common/setting.jsp"%>
-
-<!doctype html>
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/adminSetting.jsp" %>  <!-- 관리자용 setting 별도로 함. 주의! -->   
+<!DOCTYPE html>
 <html lang="en">
-<!--begin::Head-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>등록 장소 관리</title>
-<!--begin::Accessibility Meta Tags-->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="color-scheme" content="light dark" />
-<meta name="theme-color" content="#007bff"
-	media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#1a1a1a"
-	media="(prefers-color-scheme: dark)" />
-<!--end::Accessibility Meta Tags-->
-<!--begin::Primary Meta Tags-->
-<meta name="title" content="AdminLTE v4 | Dashboard" />
-<meta name="author" content="ColorlibHQ" />
-<meta name="description"
-	content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance." />
-<meta name="keywords"
-	content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard, accessible admin panel, WCAG compliant" />
-<!--end::Primary Meta Tags-->
-<!--begin::Accessibility Features-->
-<!-- Skip links will be dynamically added by accessibility.js -->
-<meta name="supported-color-schemes" content="light dark" />
-<link rel="preload" href="${path}/resources/css/adminlte.css" as="style" />
-<link rel="stylesheet" href="${path}/resources/css/adminlte.css">
-<!--end::Accessibility Features-->
-<!--begin::Third Party Plugin(OverlayScrollbars)-->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css"
-	crossorigin="anonymous" />
-<!--end::Third Party Plugin(OverlayScrollbars)-->
-<!-- apexcharts -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
-	integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
-	crossorigin="anonymous" />
-<!-- jsvectormap -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
-	integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
-	crossorigin="anonymous" />
 </head>
 <!--end::Head-->
 <!--begin::Body-->
-<body
-	class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
-	<!--begin::App Wrapper-->
-	<div class="app-wrapper">
-		<!--begin::Header-->
-		<nav class="app-header navbar navbar-expand bg-body">
-			<!--begin::Container-->
-			<div class="container-fluid">
-				<!--begin::Start Navbar Links-->
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link"
-						data-lte-toggle="sidebar" href="#" role="button"> <i
-							class="fas fa-bars"></i>
-					</a></li>
-					<li class="nav-item d-none d-md-block"><a
-						href="${path}/adminHome.ad" class="nav-link">ADMIN DASHBOARD</a></li>
-				</ul>
-				<!--end::Start Navbar Links-->
-				<!--begin::End Navbar Links-->
-				<ul class="navbar-nav ms-auto">
-					<!--begin::Navbar Search-->
-					<li class="nav-item me-2"><a href="${path}/main.do"
-						class="nav-link btn btn-outline-primary btn-sm px-3"
-						style="border-radius: 20px; font-size: 0.85rem; border-color: #01D281; color: #01D281;">
-							<i class="fas fa-external-link-alt me-1"></i>User Home
-					</a></li>
+<body class="hold-transition sidebar-mini layout-fixed">
+	<!--begin::div wrapper-->
+	<div class="wrapper">
+		<!-- Preloader -->
+		<div
+			class="preloader flex-column justify-content-center align-items-center">
+			<img src="${path}/resources/admin/dist/img/AdminLTELogo.png"
+				height="60" width="60">
+		</div>
 
-					<li class="nav-item"><a class="nav-link" href="#"> <i
-							class="fas fa-bell"></i>
-					</a></li>
+		<!-- ================= HEADER ================= -->
+		<%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
 
+<!-- 지워도 되는 충돌 -->
+<!-- <<<<<<< HEAD -->
+		<!-- ================= SIDEBAR ================= -->
+		<%@ include file="/WEB-INF/views/common/adminSidebar.jsp" %>
+<%-- =======
 					<li class="nav-item"><a class="nav-link text-danger"
 						href="${path}/logout.do" title="로그아웃"> <i
 							class="fas fa-power-off"></i>LOGOUT
@@ -240,29 +187,40 @@
 		<!--begin::Sidebar-->
 		<%@ include file="/WEB-INF/views/admin/common/sidebar.jsp"%>
 		<!--end::Sidebar-->
+>>>>>>> 75d57300759a53ac4cdd3043c7dbc38746479849 --%>
 
+		<!-- ================= CONTENT ================= -->
 		<!-- 컨텐츠 시작 -->
-		<div align="center">
+		<div class="content-wrapper">
 			<img src="${path}/resources/images/admin/placeList.png" width="100%"
 				alt="main">
 		</div>
 		<!-- 컨텐츠 끝 -->
 
-		<!--begin::Footer-->
-		<footer class="app-footer">
-			<!--begin::To the end-->
-			<div class="float-end d-none d-sm-inline">Anything you want</div>
-			<!--end::To the end-->
-			<!--begin::Copyright-->
-			<strong> Copyright &copy; 2014-2025&nbsp; <a
-				href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
-			</strong> All rights reserved.
-			<!--end::Copyright-->
+		<!-- ================= FOOTER ================= -->
+		<footer class="main-footer">
+			<strong>Copyright &copy; 2026</strong>
 		</footer>
-		<!--end::Footer-->
+		
+		<!-- 관련 SQL 시작 -->
+		<div align="center">SQL 쿼리 : 등록 맛집 목록 조회</div>
+		
+		<!-- 작성 요령 : 몇몇 특수문자를 화면에 제대로 출력하기 위해 아래와 같이 사용 필요-->
+		<!-- #${'{'} : #과 { 표시 -->
+		<!-- &lt; : < 표시 -->
+		<!-- &gt; : > 표시 -->
+		<div>
+			<pre><code>
+			</code></pre>
+		</div>
+		<!-- 관련 SQL 끝 -->
+		
 	</div>
-	<!--end::App Wrapper-->
+	<!--end::div Wrapper-->
 
+<!-- <<<<<<< HEAD -->
+	<!-- ================= JS ================= -->
+<%-- =======
 	<!-- 관련 SQL -->
 	<div align="center">
 		SQL 쿼리 : 등록 맛집 목록 조회
@@ -480,6 +438,7 @@
       sparkline3.render();
     </script>
 	<!--end::Script-->
+>>>>>>> 75d57300759a53ac4cdd3043c7dbc38746479849 --%>
 </body>
 <!--end::Body-->
 </html>
