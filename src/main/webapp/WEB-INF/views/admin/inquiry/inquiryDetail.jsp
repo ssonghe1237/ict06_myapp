@@ -238,14 +238,14 @@
 		<!--end::Header-->
 
 		<!--begin::Sidebar-->
-		<%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
+		<%@ include file="/WEB-INF/views/admin/common/sidebar.jsp"%>
 		<!--end::Sidebar-->
 
 		<!-- 컨텐츠 시작 -->
 		<div align="center">
-			<a href="${path}/inquiryDetail.ad">1:1 문의 상세</a><br>	
-			<a href="${path}/inquiryFaqList.ad">FAQ 분류, 검색</a><br>
-			<a href="${path}/inquiryFaqList.ad">FAQ 등록</a><br>	
+			<a href="${path}/admin/inquiry/inquiryDetail.ad">1:1 문의 상세</a><br>	
+			<a href="${path}/admin/inquiry/inquiryFaqList.ad">FAQ 분류, 검색</a><br>
+			<a href="${path}/admin/inquiry/inquiryFaqList.ad">FAQ 등록</a><br>	
 			<img src="${path}/resources/images/admin/adminInquiryFAQList.png" width="100%"
 				alt="main">
 		</div>
@@ -277,7 +277,7 @@
 		</pre>
 	</div>
 
-	<%@ include file="/WEB-INF/views/common/footer_script.jsp"%>
+	<%@ include file="/WEB-INF/views/admin/common/footer.jsp"%>
 
 	<!--begin::Script-->
 	<!--begin::OverlayScrollbars Configure-->

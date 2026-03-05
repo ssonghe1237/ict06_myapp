@@ -238,7 +238,7 @@
 		<!--end::Header-->
 
 		<!--begin::Sidebar-->
-		<%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
+		<%@ include file="/WEB-INF/views/admin/common/sidebar.jsp"%>
 		<!--end::Sidebar-->
 
 		<!-- 컨텐츠 시작 -->
@@ -277,7 +277,7 @@
 		</pre>
 	</div>
 
-	<%@ include file="/WEB-INF/views/common/footer_script.jsp"%>
+	<%@ include file="/WEB-INF/views/admin/common/footer.jsp"%>
 
 	<!--begin::Script-->
 	<!--begin::OverlayScrollbars Configure-->
