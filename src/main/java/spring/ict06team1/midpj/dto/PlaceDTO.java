@@ -16,9 +16,9 @@ public class PlaceDTO {
 	private String image_url;  //-- 대표 이미지 경로
 	private int review_count;  //-- 장소 별 리뷰 카운트
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd HH:mm")
-	private Timestamp placeRegDate; // 등록일 (DTO: placeRegDate)
-	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
+	private Timestamp placeRegDate;
+
 	public PlaceDTO() {
 		super();
 	}
