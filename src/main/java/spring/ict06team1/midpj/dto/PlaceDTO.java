@@ -6,14 +6,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class PlaceDTO {
 
-	private int place_id;
-	private String place_type;
-	private String name;
-	private String address;
-	private int view_count;
+	private int place_id;      // -- 장소 고유 번호 (PK, 부모)
+	private String place_type; // -- 구분 (REST: 맛집, ACC: 숙소, FEST: 축제)
+	private String name;       // -- 장소/업체 이름
+	private String address;    // -- 지번/도로명 주소
+	private int view_count;    //-- 조회수 (인기순 정렬용)
 	private double latitude;
 	private double longitude;
-	private String image_url;
+	private String image_url;  //-- 대표 이미지 경로
+	private int review_count;  //-- 장소 별 리뷰 카운트
+	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
 	private Timestamp placeRegDate;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
@@ -24,7 +26,7 @@ public class PlaceDTO {
 	}
 
 	public PlaceDTO(int place_id, String place_type, String name, String address, int view_count, double latitude,
-			double longitude, String image_url, Timestamp placeRegDate, Timestamp placeUpdateDate) {
+			double longitude, String image_url, int review_count, Timestamp placeRegDate, Timestamp placeUpdateDate) {
 		super();
 		this.place_id = place_id;
 		this.place_type = place_type;
@@ -34,6 +36,7 @@ public class PlaceDTO {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.image_url = image_url;
+		this.review_count = review_count;
 		this.placeRegDate = placeRegDate;
 		this.placeUpdateDate = placeUpdateDate;
 	}
@@ -102,6 +105,14 @@ public class PlaceDTO {
 		this.image_url = image_url;
 	}
 
+	public int getReview_count() {
+		return review_count;
+	}
+
+	public void setReview_count(int review_count) {
+		this.review_count = review_count;
+	}
+
 	public Timestamp getPlaceRegDate() {
 		return placeRegDate;
 	}
@@ -122,8 +133,8 @@ public class PlaceDTO {
 	public String toString() {
 		return "PlaceDTO [place_id=" + place_id + ", place_type=" + place_type + ", name=" + name + ", address="
 				+ address + ", view_count=" + view_count + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", image_url=" + image_url + ", placeRegDate=" + placeRegDate + ", placeUpdateDate=" + placeUpdateDate
-				+ "]";
+				+ ", image_url=" + image_url + ", review_count=" + review_count + ", placeRegDate=" + placeRegDate
+				+ ", placeUpdateDate=" + placeUpdateDate + "]";
 	}
-	
+
 }
