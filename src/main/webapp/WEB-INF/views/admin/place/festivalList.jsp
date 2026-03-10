@@ -98,6 +98,33 @@ s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(
 							</div>
 						</div>
 					</div>
+					
+					<%-- ===== 리스트 카드 ===== --%>	
+					<div class="card shadow-sm border-0">
+						<div class="card-body p-0">
+							<%-- ===== 리스트 보기 ===== --%>
+							<div id="reservationListView">
+								<table class="table table-hover align-middle m-0">
+									<thead class="thead-light">
+										<tr>
+											<th style="width:80px;">예약번호</th>
+											<th style="width:140px;">사용자</th>
+											<th style="width:80px;">분류</th>
+											<th style="width:130px;">예약일</th>
+											<th style="width:130px;">방문일</th>
+											<th style="width:110px;">예약상태</th>
+											<th style="width:130px;">관리</th>
+										</tr>
+									</thead>
+								</table>
+								
+								<%-- 페이징 --%>
+								<div class="py-3 border-top">
+									<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</section>
 			
