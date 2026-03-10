@@ -50,7 +50,7 @@ function keywordSearch() {
 	const sortType = document.getElementById('sortType').value;
 	
 	if(!keyword) {
-		alert('ID 또는 예약번호를 입력하세요.'); // TODO: 어떤 키워드를 넣을 수 있을 지 체크 
+		alert('축제명 혹은 설명에 해당하는 키워드를 입력해주세요!'); // TODO: 어떤 키워드를 넣을 수 있을 지 체크 
 		return;
 	}
 	location.href = path + '/festivalList.adpl?keyword=' + encodeURIComponent(keyword)

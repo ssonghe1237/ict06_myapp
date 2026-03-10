@@ -27,7 +27,7 @@ public class AdPlaceServiceImpl implements AdPlaceService{
 		System.out.println("[AdPlaceServiceImpl - getFestivalList()]");
 		
 		//1) parameter값 수집(검색어, 예약상태) TODO: 상황에 맞게 수정 
-		// String keyword = request.getParameter("keyword");
+		String keyword = request.getParameter("keyword");
 		String status = request.getParameter("status");
 		String pageNum = request.getParameter("pageNum");
 		String sortType = request.getParameter("sortType");
@@ -38,6 +38,7 @@ public class AdPlaceServiceImpl implements AdPlaceService{
 		//검색조건 담을 map 생성
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status", status);
+		map.put("keyword", keyword);
 		map.put("sortType",sortType != null ? sortType : "created_at_desc");
 		
 		//전체 건수 조회
@@ -57,7 +58,7 @@ public class AdPlaceServiceImpl implements AdPlaceService{
 		model.addAttribute("paging", paging);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("status", status);
-		// model.addAttribute("keyword", keyword);
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("sortType", sortType);
 	}
 

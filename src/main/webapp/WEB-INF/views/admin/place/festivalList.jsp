@@ -85,7 +85,7 @@
 								<div style="display:flex; gap:4px;"> 
 									<span class="tag tag-success" data-value="UPCOMING" onclick="toggleTag(this)">시작 전</span> <!-- TODO: 함수 작동 테스트  -->
 									<span class="tag tag-warning" data-value="ONGOING" onclick="toggleTag(this)">진행 중</span> <!-- TODO: 함수 작동 테스트 -->
-s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(this)">종료</span> <!-- TODO: 함수 작동 테스트 -->
+									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(this)">종료</span> <!-- TODO: 함수 작동 테스트 -->
 								</div>
 							</div>
 							
@@ -120,6 +120,44 @@ s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(
 											<th style="width:80px;">등록일</th>
 										</tr>
 									</thead>
+									<tbody>
+										<c:forEach var="dto" items="${list}">
+											<tr> <!-- TODO: 나중에 수정하기 -->
+												<td>${dto.festival_id}</td>
+												<td>${dto.placeDTO.name}</td>
+												<td>${dto.placeDTO.address}</td>
+												<td>${dto.placeDTO.view_count}</td>
+												<td>${dto.placeDTO.latitude}</td>
+												<td>${dto.placeDTO.longitude}</td>
+												<td><img src='${dto.placeDTO.image_url}' style="width: 80%; height: auto;"></td>
+												<td><fmt:formatDate value="${dto.start_date}" pattern="yyyy-MM-dd" /></td>
+												<td><fmt:formatDate value="${dto.end_date}" pattern="yyyy-MM-dd" /></td>
+												<td> <%-- ${dto.status} 에 따라 다른 스타일링. 필터와 동일한 컬러 및 이름 적용 --%>
+													<c:choose>
+														<c:when test="${dto.status == 'UPCOMING'}">
+															<span class="badge badge-success">시작 전</span>
+														</c:when>
+														<c:when test="${dto.status == 'ONGOING'}">
+															<span class="badge badge-warning">진행 중</span>
+														</c:when>
+														<c:when test="${dto.status == 'ENDED'}">
+															<span class="badge badge-secondary">종료</span>
+														</c:when>
+													</c:choose>	
+												</td>	
+												<td><fmt:formatDate value="${dto.placeDTO.placeRegDate}" pattern="yyyy-MM-dd" /></td>
+												<%-- TODO: 수정버튼 클릭 시 행클릭 이벤트 차단 --%>
+											</tr>
+										</c:forEach>
+										<!-- 리스트가 빈 경우 -->
+										<c:if test="${empty list}">
+											<tr>
+												<td colspan="11" class="text-center py-4 text-muted">
+													조회된 예약 내역이 없습니다.
+												</td>
+											</tr>
+										</c:if>
+									</tbody>
 								</table>
 								
 								<%-- 페이징 --%>
@@ -132,6 +170,7 @@ s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(
 				</div>
 			</section>
 			
+			<!-- 샘플 이미지: 실제 사이트에선 누락 -->
 			<%-- <img src="${path}/resources/images/admin/placeList.png" width="100%"
 				alt="main"> --%>
 		</div>
@@ -151,10 +190,44 @@ s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(
 		<!-- &gt; : > 표시 -->
 		<div>
 			<pre><code>
-				SELECT *
-				  FROM PLACE p
-				  JOIN FESTIVAL f 
-				    ON p.place_id = f.festival_id;
+				<c:out value="
+					SELECT *
+					FROM (
+					    SELECT ROWNUM AS rnum, A.*
+					    FROM (
+					        SELECT 
+					            F.festival_id,
+					            F.description,
+					            F.start_date,
+					            F.end_date,
+					            F.status,
+					            P.name,
+					            P.address,
+					            P.view_count,
+					            P.latitude,
+					            P.longitude,
+					            P.image_url,
+					            P.created_at
+					        FROM FESTIVAL F
+					        LEFT JOIN PLACE P
+					            ON F.festival_id = P.place_id
+					        WHERE
+					            (
+					                :keyword IS NULL
+					                OR P.name LIKE '%' || :keyword || '%'
+					                OR P.address LIKE '%' || :keyword || '%'
+					                OR F.description LIKE '%' || :keyword || '%'
+					            )
+					        AND (
+					                :status IS NULL
+					                OR F.status IN (:status)
+					            )
+					        -- sortType에 따라 다르게 정렬: P.created_at ASC, F.start_date DESC, F.start_date DESC, F.end_date ASC, F.end_date DESC     
+					        ORDER BY P.created_at DESC
+					    ) A
+					)
+					WHERE rnum BETWEEN :startRow AND :endRow;
+				"/>
 			</code></pre>
 		</div>
 		<!-- 관련 SQL 끝 -->
