@@ -69,7 +69,7 @@
 							<div class="filter-row">
 								<span class="filter-row-label">정렬</span>
 								<select id="sortType" name="sortType" class="form-control form-control-sm"
-										style="width:130px;" onchange="filterData()">
+										style="width:160px;" onchange="filterData()">
 									<option value="created_at_desc" ${sortType=='created_at_desc' ? 'selected' : ''}>축제 등록일 최신순</option>
 									<option value="start_date_asc" ${sortType=='start_date_asc' ? 'selected' : ''}>축제 시작일 오름차순</option> <!-- TODO: 상황 따라 변수 수정 필요  -->
 									<option value="start_date_desc" ${sortType=='start_date_desc' ? 'selected' : ''}>축제 시작일 내림차순</option> <!-- TODO: 상황 따라 변수 수정 필요  -->
@@ -107,13 +107,17 @@ s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(
 								<table class="table table-hover align-middle m-0">
 									<thead class="thead-light">
 										<tr>
-											<th style="width:80px;">예약번호</th>
-											<th style="width:140px;">사용자</th>
-											<th style="width:80px;">분류</th>
-											<th style="width:130px;">예약일</th>
-											<th style="width:130px;">방문일</th>
-											<th style="width:110px;">예약상태</th>
-											<th style="width:130px;">관리</th>
+											<th style="width:80px;">축제번호</th>
+											<th style="width:140px;">축제명</th>
+											<th style="width:140px;">주소</th>
+											<th style="width:80px;">조회수</th>
+											<th style="width:80px;">위도</th>
+											<th style="width:80px;">경도</th>
+											<th style="width:130px;">대표 이미지</th>
+											<th style="width:80px;">축제 시작일</th>
+											<th style="width:80px;">축제 종료일</th>
+											<th style="width:80px;">축제 상태</th>
+											<th style="width:80px;">등록일</th>
 										</tr>
 									</thead>
 								</table>
@@ -128,8 +132,8 @@ s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(
 				</div>
 			</section>
 			
-			<img src="${path}/resources/images/admin/placeList.png" width="100%"
-				alt="main">
+			<%-- <img src="${path}/resources/images/admin/placeList.png" width="100%"
+				alt="main"> --%>
 		</div>
 		<!-- 컨텐츠 끝 -->
 
@@ -147,6 +151,10 @@ s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(
 		<!-- &gt; : > 표시 -->
 		<div>
 			<pre><code>
+				SELECT *
+				  FROM PLACE p
+				  JOIN FESTIVAL f 
+				    ON p.place_id = f.festival_id;
 			</code></pre>
 		</div>
 		<!-- 관련 SQL 끝 -->
@@ -154,6 +162,9 @@ s									<span class="tag tag-secondary" data-value="ENDED" onclick="toggleTag(
 	<!--end::div Wrapper-->
 
 	<!-- ================= JS ================= -->
+	<script>const path = "${path}";</script>
+	<script src="${path}/resources/js/admin/festival.js"></script>
+	
 </body>
 <!--end::Body-->
 </html>
