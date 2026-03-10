@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import spring.ict06team1.midpj.service.AdSupportService;
+import spring.ict06team1.midpj.service.AdSupportServiceImpl;
 
 @Controller
 public class AdSupportController {
@@ -21,7 +22,7 @@ public class AdSupportController {
     private static final Logger logger = LoggerFactory.getLogger(AdSupportController.class);
 
     @Autowired
-    private AdSupportService adsupportService; // 관리자 전용 고객지원 서비스
+    private AdSupportServiceImpl adsupportService; // 관리자 전용 고객지원 서비스
 
     // [관리자 1:1 문의 관리] ---------------------------------------------------------------------------------
 
