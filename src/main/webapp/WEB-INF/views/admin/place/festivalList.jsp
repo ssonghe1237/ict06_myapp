@@ -6,7 +6,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>등록 장소 관리</title>
+
+<fmt:setTimeZone value="Asia/Seoul"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="${path}/resources/css/admin/ad_reservation.css">
+
+<title>축제 관리</title>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -28,6 +34,66 @@
 		<!-- ================= CONTENT ================= -->
 		<!-- 컨텐츠 시작 -->
 		<div class="content-wrapper">
+		
+			<div class="app-content-header py-3">
+				<div class="container-fluid">
+					<h3 class="mb-0 font-weight-bold">축제 관리</h3>
+				</div>
+			</div>
+			
+			<section class="app-content">
+				<div class="container-fluid">
+				
+					<%--필터 영역--%>
+					<div class="filter-box mb-3 p-3 bg-white shadow-sm rounded">
+					
+						<%--좌측: 보기방식+키워드 검색+정렬--%>
+						<div class="d-flex align-items-center justify-content-between flex-wrap" style="gap:15px;">
+							<div class="d-flex align-items-center" style="gap:15px;">
+								<%--키워드 검색 영역--%>
+								<div class="input-group input-group-sm" style="width:220px;">
+									<input type="text" id="keyword" name="keyword" class="form-control"
+										placeholder="축제 키워드 입력" value="${param.keyword}" style="font-size:0.78rem;"> <!-- TODO: 이 변수 체크 -->
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary" type="button" onclick="keywordSearch()" style="font-size:0.78rem;">
+											<i class="bi bi-search"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<%--우측: 필터 태그 및 검색 영역--%>
+						<div class="filter-right">
+							<%--정렬 드롭다운 영역--%>
+							<div class="filter-row">
+								<span class="filter-row-label">정렬</span>
+								<select id="sortType" name="sortType" class="form-control form-control-sm"
+										style="width:130px;" onchange="filterData()">
+									<option value="created_at_desc" ${sortType=='created_at_desc' ? 'selected' : ''}>축제 등록일 최신순</option>
+									<option value="start_date_asc" ${sortType=='start_date_asc' ? 'selected' : ''}>축제 시작일 오름차순</option> <!-- TODO: 상황 따라 변수 수정 필요  -->
+									<option value="start_date_desc" ${sortType=='start_date_desc' ? 'selected' : ''}>축제 시작일 내림차순</option> <!-- TODO: 상황 따라 변수 수정 필요  -->
+									<option value="end_date_asc" ${sortType=='end_date_asc' ? 'selected' : ''}>축제 종료일 오름차순</option> <!-- TODO: 상황 따라 변수 수정 필요  -->
+									<option value="end_date_desc" ${sortType=='end_date_desc' ? 'selected' : ''}>축제 종료일 내림차순</option> <!-- TODO: 상황 따라 변수 수정 필요  -->
+									<option value="status" ${sortType=='status' ? 'selected' : ''}>축제 상태순</option>
+								</select>
+							</div>
+							
+							<%--필터(축제 상태)--%>
+							<div class="filter-row">
+								<span class="filter-row-label">축제 상태</span>
+								<div style="display:flex; gap:4px;"> 
+									<span class="tag tag-success" data-value="UPCOMING" onclick="toggleTag(this)">확정</span> <!-- TODO: 함수 작동 테스트  -->
+									<span class="tag tag-warning" data-value="PENDING" onclick="toggleTag(this)">결제대기</span> <!-- TODO: 함 -->
+									<span class="tag tag-danger" data-value="CANCELLED" onclick="toggleTag(this)">취소</span>
+									<span class="tag tag-secondary" data-value="COMPLETED" onclick="toggleTag(this)">이용완료</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
 			<img src="${path}/resources/images/admin/placeList.png" width="100%"
 				alt="main">
 		</div>

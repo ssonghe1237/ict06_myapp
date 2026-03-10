@@ -48,4 +48,6 @@ public class AdPlaceController {
 		logger.info("[url => /festivalList.adpl]");
 		return "admin/place/festivalList";
 	}
+	
+	
 }
