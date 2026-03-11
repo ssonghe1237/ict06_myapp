@@ -46,24 +46,34 @@
               	<form>
 	              	<!-- card-body 시작  -->
 	                <div class="card-body">
-	                	<!-- 축제 이름 시작-->
-	                	<div class="form-group">
-	                		<label for="inputName">축제 이름</label>
-	                		<input type="text" id="inputName" class=".form-control-border" placeholder="축제 이름을 입력해주세요">
-	                	</div>
-	                	<!-- 축제 이름 끝-->
-	                	<!-- 축제 주소 시작-->
-	                	<div class="form-group">
-	                		<label for="inputAddress">축제 주소</label>
-	                		<input type="text" id="inputAddress" class=".form-control-border" placeholder="축제 주소를 입력해주세요">
-	                	</div>
-	                	<!-- 축제 주소 끝-->
-	                	<!-- 축제 위도 시작-->
-	                	<div class="form-group">
-	                		<label for="inputAddress">축제 위도</label>
-	                		<input type="text" id="inputAddress" class=".form-control-border" placeholder="축제 위도를 입력해주세요">
-	                	</div>
-	                	<!-- 축제 위도 끝-->
+	                	<!-- 정보 입력 테이블 영역 시작 -->
+	                	<table class="table">
+	                		<!-- 축제 이름 시작-->
+	                		<tr>
+	                			<th><label for="inputName">축제 이름</label></th>
+	                			<td> </td>
+	                		</tr>
+	                		<!-- 축제 이름 끝-->
+		                	
+		                	<div class="form-group">
+		                		<label for="inputName">축제 이름</label>
+		                		<input type="text" id="inputName" class=".form-control-border" placeholder="축제 이름을 입력해주세요">
+		                	</div>
+		                	
+		                	<!-- 축제 주소 시작-->
+		                	<div class="form-group">
+		                		<label for="inputAddress">축제 주소</label>
+		                		<input type="text" id="inputAddress" class=".form-control-border" placeholder="축제 주소를 입력해주세요">
+		                	</div>
+		                	<!-- 축제 주소 끝-->
+		                	<!-- 축제 위도 시작-->
+		                	<div class="form-group">
+		                		<label for="inputAddress">축제 위도</label>
+		                		<input type="text" id="inputAddress" class=".form-control-border" placeholder="축제 위도를 입력해주세요">
+		                	</div>
+		                	<!-- 축제 위도 끝-->
+	                	</table>
+	                	<!-- 정보 입력 테이블 영역 끝 -->
 	                	
 	                	
 	                  <!-- <div class="form-group">
