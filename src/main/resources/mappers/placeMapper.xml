@@ -8,22 +8,37 @@
   <!-- 맛집 상세 조회 -->
   <!-- ========================= -->
   <select id="selectPlaceDetail"
-          parameterType="int"
-          resultType="spring.ict06team1.midpj.dto.PlaceDTO">
-    SELECT
-      place_id,
-      place_type,
-      name,
-      address,
-      view_count,
-      latitude,
-      longitude,
-      image_url,
-      created_at AS placeRegDate
-    FROM place
-    WHERE place_id = #{value}
-      AND place_type = 'REST'
-  </select>
+        parameterType="int"
+        resultType="spring.ict06team1.midpj.dto.PlaceDTO">
+  SELECT
+    p.place_id,
+    p.place_type,
+    p.name,
+    p.address,
+    p.view_count,
+    p.latitude,
+    p.longitude,
+    p.image_url,
+    p.created_at AS placeRegDate,
+    COUNT(r.review_id) AS review_count,
+    NVL(ROUND(AVG(r.rating), 1), 0) AS avg_rating
+  FROM place p
+  LEFT JOIN review r
+    ON p.place_id = r.place_id
+   AND r.status = 'DISPLAY'
+  WHERE p.place_id = #{value}
+    AND p.place_type = 'REST'
+  GROUP BY
+    p.place_id,
+    p.place_type,
+    p.name,
+    p.address,
+    p.view_count,
+    p.latitude,
+    p.longitude,
+    p.image_url,
+    p.created_at
+</select>
 
   <!-- 조회수 증가 -->
   <update id="increaseViewCount" parameterType="int">

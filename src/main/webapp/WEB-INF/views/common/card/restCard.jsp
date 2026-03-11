@@ -8,7 +8,7 @@
 =============================================== -->
 
 <div class="${mode eq 'top10' ? 'top10-card-wrap' : ''}">
-    <a href="${path}/place/detail?id=${place.place_id}" class="place-card text-decoration-none text-dark">
+    <a href="${path}/restaurantDetail.rs?place_id=${place.place_id}" class="place-card text-decoration-none text-dark">
         <div class="place-card__thumb-wrap position-relative">
             <img src="${place.image_url}" alt="${place.name}" loading="lazy" class="thumb-img" />
 				
