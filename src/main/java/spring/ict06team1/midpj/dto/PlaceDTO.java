@@ -14,6 +14,8 @@ public class PlaceDTO {
 	private double latitude;
 	private double longitude;
 	private String image_url;  //-- 대표 이미지 경로
+	private ReviewDTO reviewDto;
+	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
 	private Timestamp placeRegDate;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
@@ -24,7 +26,8 @@ public class PlaceDTO {
 	}
 
 	public PlaceDTO(int place_id, String place_type, String name, String address, int view_count, double latitude,
-			double longitude, String image_url, Timestamp placeRegDate, Timestamp placeUpdateDate) {
+			double longitude, String image_url, ReviewDTO reviewDto, Timestamp placeRegDate,
+			Timestamp placeUpdateDate) {
 		super();
 		this.place_id = place_id;
 		this.place_type = place_type;
@@ -34,6 +37,7 @@ public class PlaceDTO {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.image_url = image_url;
+		this.reviewDto = reviewDto;
 		this.placeRegDate = placeRegDate;
 		this.placeUpdateDate = placeUpdateDate;
 	}
@@ -102,6 +106,14 @@ public class PlaceDTO {
 		this.image_url = image_url;
 	}
 
+	public ReviewDTO getReviewDto() {
+		return reviewDto;
+	}
+
+	public void setReviewDto(ReviewDTO reviewDto) {
+		this.reviewDto = reviewDto;
+	}
+
 	public Timestamp getPlaceRegDate() {
 		return placeRegDate;
 	}
@@ -122,8 +134,8 @@ public class PlaceDTO {
 	public String toString() {
 		return "PlaceDTO [place_id=" + place_id + ", place_type=" + place_type + ", name=" + name + ", address="
 				+ address + ", view_count=" + view_count + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", image_url=" + image_url + ", placeRegDate=" + placeRegDate + ", placeUpdateDate=" + placeUpdateDate
-				+ "]";
+				+ ", image_url=" + image_url + ", reviewDto=" + reviewDto + ", placeRegDate=" + placeRegDate
+				+ ", placeUpdateDate=" + placeUpdateDate + "]";
 	}
-
+	
 }
