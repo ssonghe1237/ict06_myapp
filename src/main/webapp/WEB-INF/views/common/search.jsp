@@ -59,7 +59,7 @@
 			    <div class="row g-3">
 				    <c:forEach var="restDTO" items="${restList}" varStatus="st">
 				        <div class="col-6 col-md-4 col-lg-3 searchRestCard ${st.index >= 8 ? 'd-none' : ''}">
-				            <a href="${path}/place/detail?id=${restDTO.place_id}" class="place-card text-decoration-none text-dark">
+				            <a href="${path}/restaurantDetail.rs?place_id=${restDTO.place_id}" class="place-card text-decoration-none text-dark">
 				
 				                <div class="place-card__thumb-wrap position-relative">
 				                    <img src="${restDTO.image_url}"
