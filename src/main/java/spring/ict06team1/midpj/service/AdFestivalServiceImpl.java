@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 
 import spring.ict06team1.midpj.dao.AdFestivalDAO;
 import spring.ict06team1.midpj.dto.FestivalDTO;
+import spring.ict06team1.midpj.dto.FestivalTicketDTO;
 import spring.ict06team1.midpj.dto.PlaceDTO;
 import spring.ict06team1.midpj.page.Paging;
 
@@ -82,12 +83,15 @@ public class AdFestivalServiceImpl implements AdFestivalService{
 	public void insertFestival(HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("[AdFestivalServiceImpl - insertFestival()]");
 		
-		// 1) parameter값 수집(검색어, 예약상태) TODO: 상황에 맞게 수정 
+		// 1) parameter값 수집(검색어, 예약상태) 
+		// PlaceDTO에 담을 변수
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
 		double latitude = Double.parseDouble(request.getParameter("latitude"));
 		double longitude = Double.parseDouble(request.getParameter("longitude"));
 		String image_url = request.getParameter("image_url");
+		
+		// FestivalDTO에 담을 변수
 		String description = request.getParameter("description");
 		Date start_date = Date.valueOf(request.getParameter("start_date")) ;
 		Date end_date = Date.valueOf(request.getParameter("end_date"));
@@ -112,18 +116,42 @@ public class AdFestivalServiceImpl implements AdFestivalService{
 		
 		// Place 테이블에 먼저 추가 시도하여 성공 시 
 		if(insertCntPlace > 0) {
-			int insertCnt = dao.insertFestival(dto);
+			int insertFestivalCnt = dao.insertFestival(dto);
 			
-			//Model에 담아서 jsp로 전달
-			model.addAttribute("insertCnt", insertCnt); 
+			// Festival 테이블에 추가 시도하여 성공 시
+			if(insertFestivalCnt > 0) {
+				int insertCnt = 0; 
+				
+				// FestivalTicketDTO에 담을 변수 
+				String[] ticket_types = {"Free", "OneDay", "TwoDay", "AllDay"}; // 무료, 1일권, 2일권, 전일권 구분  
+				
+				for(int i = 0; i < ticket_types.length; i++) {
+					FestivalTicketDTO ticketDTO = new FestivalTicketDTO();
+					ticketDTO.setTicket_type(ticket_types[i]);			
+					ticketDTO.setPrice(Integer.parseInt(request.getParameter("price" + ticket_types[i])));
+					ticketDTO.setStock(Integer.parseInt(request.getParameter("stock" + ticket_types[i])));
+					ticketDTO.setDescription(request.getParameter("ticketDesc" + ticket_types[i]));
+					int insertTicketCnt = dao.insertTicket(ticketDTO); 
+					
+					// 한 번이라도 티켓 정보 등록 실패하면 축제 정보 등록 실패
+					if(insertTicketCnt == 0) {
+						model.addAttribute("insertCnt", 0);
+						break; 
+					}
+				}
+				// 모든 티켓 등록 성공 후 Model에 담아서 jsp로 전달
+				model.addAttribute("insertCnt", 1); 
+			}
+			// Festival 테이블에 추가 실패 시 
+			else {
+				model.addAttribute("insertCnt", 0);
+			}
 		} 
 		// Place 테이블에 추가 실패 시 
 		else {
 			//Model에 담아서 jsp로 전달
 			model.addAttribute("insertCnt", 0); 
 		}
-		
-		
 	}
 	
 	// 축제 정보 삭제 

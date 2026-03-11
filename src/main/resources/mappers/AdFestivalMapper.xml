@@ -124,9 +124,28 @@
 		    end_date
 		) VALUES (
 		    SEQ_PLACE.CURRVAL,
-		    #{description},
+		    #{description, jdbcType=CLOB},
 		    #{start_date},
 		    #{end_date}
+		)
+	</insert>
+	
+	<!-- (3) 신규 티켓 정보 등록 -->
+	<insert id="insertTicket" parameterType="spring.ict06team1.midpj.dto.FestivalTicketDTO">
+		INSERT INTO FESTIVAL_TICKET (
+		    ticket_id,
+		    festival_id,
+		    ticket_type,
+		    price,
+		    stock,
+		    description
+		) VALUES (
+		    SEQ_TICKET.NEXTVAL,
+		    SEQ_PLACE.CURRVAL,
+		    #{ticket_type},
+		    #{price}, 
+		    #{stock},
+		    #{description, jdbcType=CLOB}
 		)
 	</insert>
 	

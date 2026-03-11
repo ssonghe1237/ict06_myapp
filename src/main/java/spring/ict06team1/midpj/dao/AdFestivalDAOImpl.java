@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import spring.ict06team1.midpj.dto.FestivalDTO;
+import spring.ict06team1.midpj.dto.FestivalTicketDTO;
 import spring.ict06team1.midpj.dto.PlaceDTO;
 
 @Repository
@@ -59,12 +60,17 @@ public class AdFestivalDAOImpl implements AdFestivalDAO{
 		return sqlSession.getMapper(AdFestivalDAO.class).insertFestival(dto);
 	}
 	
+	// (3) 신규 티켓 정보 등록
+	@Override
+	public int insertTicket(FestivalTicketDTO dto) {
+		System.out.println("[AdReservationDAOImpl - insertTicket()]");
+		return sqlSession.getMapper(AdFestivalDAO.class).insertTicket(dto);
+	}
+	
 	// 축제 정보 삭제
 	@Override
 	public int deleteFestival(int festival_id) {
 		System.out.println("[AdReservationDAOImpl - getFestivalList()]");
 		return 0;
 	}
-
-	
 }

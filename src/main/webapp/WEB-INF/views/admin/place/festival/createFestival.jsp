@@ -51,31 +51,31 @@
 	                		<!-- 축제 이름 시작-->
 	                		<tr>
 	                			<th><label for="inputName">* 축제 이름</label></th>
-	                			<td><input type="text" id="inputName" name="name" class=".form-control-border" placeholder="축제 이름을 입력해주세요" required></td>
+	                			<td><input type="text" id="inputName" name="name" placeholder="축제 이름을 입력해주세요" required></td>
 	                		</tr>
 	                		<!-- 축제 이름 끝-->
 		                	<!-- 축제 주소 시작-->
 		                	<tr>
 	                			<th><label for="inputAddress">축제 주소</label></th>
-	                			<td><input type="text" id="inputAddress" name="address" class=".form-control-border" placeholder="축제 주소를 입력해주세요"></td>
+	                			<td><input type="text" id="inputAddress" name="address" placeholder="축제 주소를 입력해주세요"></td>
 	                		</tr>
 		                	<!-- 축제 주소 끝-->
 		                	<!-- 축제 위도 시작-->
 		                	<tr>
 	                			<th><label for="inputLatitude">축제 위도</label></th>
-	                			<td><input type="number" step="0.00000001" id="inputLatitude" name="latitude" class=".form-control-border" placeholder="축제 위도를 입력해주세요"></td>
+	                			<td><input type="number" step="0.00000001" id="inputLatitude" name="latitude" placeholder="축제 위도를 입력해주세요"></td>
 	                		</tr>
 		                	<!-- 축제 위도 끝-->
 		                	<!-- 축제 경도 시작-->
 		                	<tr>
 	                			<th><label for="inputLongitude">축제 경도</label></th>
-	                			<td><input type="number" step="0.00000001" name="longitude" id="inputLongitude" class=".form-control-border" placeholder="축제 경도를 입력해주세요"></td>
+	                			<td><input type="number" step="0.00000001" name="longitude" id="inputLongitude" placeholder="축제 경도를 입력해주세요"></td>
 	                		</tr>
 		                	<!-- 축제 경도 끝-->
 		                	<!-- 축제 이미지 URL 시작 -->
 		                	<tr>
 	                			<th><label for="inputImgAddress">축제 이미지 웹주소</label></th>
-	                			<td><input type="text" id="inputImgAddress" name="image_url" class=".form-control-border" placeholder="축제 이미지 웹주소를 입력해주세요"></td>
+	                			<td><input type="text" id="inputImgAddress" name="image_url" placeholder="축제 이미지 웹주소를 입력해주세요"></td>
 	                		</tr>
 		                	<!-- 축제 이미지 URL 끝 -->
 		                	<!-- 축제 설명 시작 -->
@@ -96,7 +96,57 @@
 	                			<td><input type="date" id="inputEndDate" name="end_date"></td>
 	                		</tr>
 		                	<!-- 축제 종료일 끝 -->
-		                	
+		                	<!-- 티켓 정보 입력 시작 -->
+		                	<tr>
+		                		<th>티켓 정보</th>
+		                		<td> 
+		                			<!-- 티켓 표 시작 -->
+			                		<table class="table">
+			                			<!-- 헤더 시작: 티켓 종류, 가격, 재고, 설명 -->
+			                			<tr>
+			                				<th>티켓 종류</th>
+			                				<th>가격</th>
+			                				<th>재고</th>
+			                				<th>설명</th>
+			                			</tr>
+			                			<!-- 헤더 끝 -->
+			                			<!-- 무료 티켓 시작 -->
+			                			<tr>
+			                				<td>무료</td>
+			                				<td><input type="number" name="priceFree" placeholder="가격" ></td>
+			                				<td><input type="number" name="stockFree" placeholder="재고" ></td>
+			                				<td><textarea name="ticketDescFreeDay" cols="24" rows="5" placeholder="티켓 설명문을 입력해주세요."></textarea></td>
+			                			</tr>
+			                			<!-- 무료 티켓 끝 -->
+			                			<!-- 1일권 시작 -->
+			                			<tr>
+			                				<td>1일권</td>
+			                				<td><input type="number" name="priceOneDay" placeholder="가격" ></td>
+			                				<td><input type="number" name="stockOneDay" placeholder="재고" ></td>
+			                				<td><textarea name="ticketDescOneDay" cols="24" rows="5" placeholder="티켓 설명문을 입력해주세요."></textarea></td>
+			                			</tr>
+			                			<!-- 1일권 끝 -->
+			                			<!-- 2일권 시작 -->
+			                			<tr>
+			                				<td>2일권</td>
+			                				<td><input type="number" name="priceTwoDay" placeholder="가격" ></td>
+			                				<td><input type="number" name="stockTwoDay" placeholder="재고" ></td>
+			                				<td><textarea name="ticketDescTwoDay" cols="24" rows="5" placeholder="티켓 설명문을 입력해주세요."></textarea></td>
+			                			</tr>
+			                			<!-- 2일권 끝 -->
+			                			<!-- 전일권 시작 -->
+			                			<tr>
+			                				<td>전일권</td>
+			                				<td><input type="number" name="priceAllDay" placeholder="가격" ></td>
+			                				<td><input type="number" name="stockAllDay" placeholder="재고" ></td>
+			                				<td><textarea name="ticketDescAllDay" cols="24" rows="5" placeholder="티켓 설명문을 입력해주세요."></textarea></td>
+			                			</tr>
+			                			<!-- 전일권 끝 -->
+				                	</table>
+				                	<!-- 티켓 표 끝 -->
+			                	</td>
+		                	</tr>
+		                	<!-- 티켓 정보 입력 끝 -->
 	                	</table>
 	                	<!-- 정보 입력 테이블 영역 끝 -->
 	                </div>
