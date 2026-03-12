@@ -14,15 +14,22 @@ SELECT *
     OR p.ADDRESS LIKE '%서울%'
     OR f.DESCRIPTION LIKE '%신나는%';
 
+-- 축제 상세 조회
+SELECT * 
+  FROM FESTIVAL
+ WHERE FESTIVAL_ID = 417;
+
+-----------------------------------------
+-- 축제 등록 시 문제가 생길 때 체크 
 -- PLACE 테이블의 place_id 최댓값 확인
 SELECT MAX(place_id) FROM PLACE;
 
 -- SEQ_PLACE의 최댓값 확인
 SELECT SEQ_PLACE.NEXTVAL FROM DUAL;
 
--- SEQ_PLACE가 현재 PLACE 테이블과 동일한 크기가 아닐 때 적용
+-- SEQ_PLACE.NEXTVAL이 현재 PLACE 테이블이의 최대 place_id가 동일한 크기가 아닐 때 적용
 CREATE SEQUENCE SEQ_PLACE
-START WITH 1001
+START WITH 1001 -- 최대 place_id + 1
 INCREMENT BY 1;
 
 -- SEQ_TICKET의 최댓값 확인

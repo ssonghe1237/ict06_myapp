@@ -70,6 +70,20 @@ public class AdFestivalServiceImpl implements AdFestivalService{
 	public void getFestivalDetail(HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("[AdFestivalServiceImpl - getFestivalDetail()]");
 		
+		// 1) parameter값 수집(festival_id)
+		int festival_id = Integer.parseInt(request.getParameter("festival_id")); 
+		
+		// 2) 상세 조회
+		// 2-1) FestivalDTO 조회
+		FestivalDTO festivalDTO = dao.getFestivalDetail(festival_id); 
+		// System.out.println("festivalDTO" + festivalDTO);
+		System.out.println(festivalDTO.getPlaceDTO().getName());
+		
+		// 2-2) (있다면) FestivalTicketDTO 조회 
+		
+		
+		// 3) Model에 담아서 jsp로 전달
+		model.addAttribute("festivalDTO", festivalDTO); 
 	}
 
 	// 축제 정보 수정

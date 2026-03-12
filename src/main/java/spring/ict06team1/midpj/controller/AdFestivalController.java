@@ -50,4 +50,13 @@ private static final Logger logger = LoggerFactory.getLogger(AdPlaceController.c
 		adFestService.insertFestival(request, response, model); 
 		return "admin/place/festival/createFestivalAction";
 	}
+	
+	// [관리자 - 장소 관리] 축제 1건 상세 조회
+	@RequestMapping("/showFestivalDetail.adfe")
+	public String showFestivalDetail(HttpServletRequest request, HttpServletResponse response, Model model)
+			throws ServletException, IOException {
+		logger.info("[url => /showFestivalDetail.adfe]");
+		adFestService.getFestivalDetail(request, response, model); 
+		return "admin/place/festival/showFestivalDetail";
+	}
 }
