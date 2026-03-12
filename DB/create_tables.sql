@@ -22,6 +22,7 @@ SELECT * FROM MEMBER;
 INSERT INTO MEMBER (user_id, password, email, name)
 VALUES (admin1, admin1234, unick123@nate.com, admin);
 
+
 -- 2. 장소 통합
 CREATE TABLE PLACE (
     place_id    NUMBER PRIMARY KEY,
@@ -233,7 +234,12 @@ SELECT * FROM POINT;
 -- 17. INQUIRY (1:1 문의)
 CREATE TABLE INQUIRY (
     inquiry_id   NUMBER PRIMARY KEY,
+<<<<<<< HEAD
     user_id      VARCHAR2(50) REFERENCES MEMBER(user_id),
+=======
+    user_id      VARCHAR2(50) REFERENCES MEMBER(user_id) ON DELETE SET NULL,
+    category	VARCHAR2(200),
+>>>>>>> origin/dev
     title        VARCHAR2(200) NOT NULL,
     content      CLOB NOT NULL,
     status       VARCHAR2(20) DEFAULT 'PENDING', -- PENDING, ANSWERED

@@ -42,8 +42,12 @@
         
         
         <property name="context-root" value="midpj"/>
+<<<<<<< HEAD
                 
         <property name="java-output-path" value="/ict06_mid_pj_ict06_mid_pj/target/classes"/>
+=======
+        <property name="java-output-path" value="/ict06_mid_pj/target/classes"/>
+>>>>>>> origin/dev
                                                 	
     
     
