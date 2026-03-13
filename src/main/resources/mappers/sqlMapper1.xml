@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
- <mapper namespace="spring.ict06team1.midpj.dao.AdminDAO">  <!-- namespace="패키지명.인터페이스" -->
+ <mapper namespace="spring.ict06team1.midpj.dao.AdRestaurantDAO">  <!-- namespace="패키지명.인터페이스" -->
 	 
 	<!--관리자 장소 - 맛집 관리  -->
 	<!--장소 목록 갯수 구하기  -->
@@ -45,25 +45,37 @@
     </select>
 
     <update id="testInsertPlace" parameterType="spring.ict06team1.midpj.dto.PlaceDTO">
-    MERGE INTO PLACE p
-    USING DUAL ON (p.place_id = #{place_id})
-    WHEN MATCHED THEN
-        UPDATE SET name = #{name}, address = #{address}, latitude = #{latitude}, longitude = #{longitude}, image_url = #{image_url}
-    WHEN NOT MATCHED THEN
-        INSERT (place_id, place_type, name, address, view_count, latitude, longitude, image_url, created_at)
-        VALUES (#{place_id}, 'REST', #{name}, #{address}, 0, #{latitude}, #{longitude}, #{image_url}, SYSTIMESTAMP)
+	    MERGE INTO PLACE p
+	    USING DUAL ON (p.place_id = #{place_id})
+	    WHEN MATCHED THEN
+	        UPDATE SET 
+	            name = #{name, jdbcType=VARCHAR}, 
+	            address = #{address, jdbcType=VARCHAR}, 
+	            latitude = #{latitude, jdbcType=DOUBLE}, 
+	            longitude = #{longitude, jdbcType=DOUBLE}, 
+	            image_url = #{image_url, jdbcType=VARCHAR}
+	    WHEN NOT MATCHED THEN
+	        INSERT (place_id, place_type, name, address, view_count, latitude, longitude, image_url, created_at)
+	        VALUES (#{place_id}, 'REST', #{name, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR}, 0, 
+	                #{latitude, jdbcType=DOUBLE}, #{longitude, jdbcType=DOUBLE}, #{image_url, jdbcType=VARCHAR}, SYSTIMESTAMP)
 	</update>
-
+	
 	<update id="testInsertRes" parameterType="spring.ict06team1.midpj.dto.RestaurantDTO">
 	    MERGE INTO RESTAURANT r
 	    USING DUAL ON (r.restaurant_id = #{restaurant_id})
 	    WHEN MATCHED THEN
-	        UPDATE SET description = #{description}, phone = #{phone}, category = #{category}, opentime = #{opentime}, restdate = #{restdate}, parking = #{parking}, areaCode = #{areaCode}
+	        UPDATE SET 
+	            description = #{description, jdbcType=VARCHAR}, 
+	            phone = #{phone, jdbcType=VARCHAR}, 
+	            category = #{category, jdbcType=VARCHAR}, 
+	            restdate = #{restdate, jdbcType=VARCHAR}, 
+	            areaCode = #{areaCode, jdbcType=VARCHAR}
 	    WHEN NOT MATCHED THEN
-	        INSERT (restaurant_id, description, phone, category, status, opentime, restdate, parking, areaCode)
-	        VALUES (#{restaurant_id}, #{description}, #{phone}, #{category}, 'OPEN', #{opentime}, #{restdate}, #{parking}, #{areaCode})
+	        INSERT (restaurant_id, description, phone, category, status, restdate, areaCode)
+	        VALUES (#{restaurant_id}, #{description, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, 
+	                #{category, jdbcType=VARCHAR}, 'OPEN', #{restdate, jdbcType=VARCHAR}, #{areaCode, jdbcType=VARCHAR})
 	</update>
-	
+		
 	 <insert id="getPlaceInsert" parameterType="spring.ict06team1.midpj.dto.PlaceDTO">
 	    <selectKey keyProperty="place_id" resultType="int" order="BEFORE">
 	        SELECT SEQ_PLACE.NEXTVAL FROM DUAL
@@ -77,11 +89,10 @@
 	
 	<insert id="getRestaurantInsert" parameterType="spring.ict06team1.midpj.dto.RestaurantDTO">
 	    INSERT INTO RESTAURANT (
-	        restaurant_id, description, phone, category, status, opentime, restdate, parking, areaCode
+	        restaurant_id, description, phone, category, status, restdate, areaCode
 	    ) VALUES (
 	        #{restaurant_id}, #{description, jdbcType=CLOB}, #{phone, jdbcType=VARCHAR}, #{category, jdbcType=VARCHAR}, 
-	        'OPEN', #{opentime, jdbcType=VARCHAR}, #{restdate, jdbcType=VARCHAR}, 
-	        #{parking, jdbcType=VARCHAR}, #{areaCode, jdbcType=VARCHAR}
+	        'OPEN',#{restdate, jdbcType=VARCHAR}, #{areaCode, jdbcType=VARCHAR} 
 	    )
 	</insert>
 	
@@ -107,9 +118,7 @@
             TRIM(phone) AS phone, 
             category, 
             status, 
-            opentime, 
             restdate, 
-            parking, 
             TRIM(areaCode) AS areaCode
         FROM RESTAURANT
         WHERE restaurant_id = #{place_id}
@@ -131,9 +140,7 @@
            SET description = #{description},
                phone = #{phone},
                category = #{category},
-               opentime = #{opentime},
                restdate = #{restdate},
-               parking = #{parking},
                areaCode = #{areaCode}
          WHERE restaurant_id = #{restaurant_id}
     </update>

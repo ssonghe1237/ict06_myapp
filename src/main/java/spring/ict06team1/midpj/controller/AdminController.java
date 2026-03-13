@@ -34,7 +34,7 @@ public class AdminController {
 	public String adminHome(HttpServletRequest request, HttpServletResponse response, Model model)
 			throws ServletException, IOException {
 		logger.info("[url => /adminHome.ad]");
-//		return "admin/home";
+	//	return "admin/home";
 		return "admin/adminHome";
 	}
 	
@@ -46,96 +46,5 @@ public class AdminController {
 		return "admin/adminSample";
 	}
 	
-	@GetMapping("/restaurant.ad")
-	public String restaurant(HttpServletRequest request, HttpServletResponse response, Model model)
-			throws ServletException, IOException {
-			logger.info("<<< url => /restaurant.ad >>>");
-			adminService.getRestaurant_list(request, response, model);
-			return "admin/place/restaurant";
-	}
-	
-	
-	
-	/*
-	 * @RequestMapping("/restaurantArea.ad")
-	 * 
-	 * @ResponseBody // Java 객체를 JSON으로 자동 변환 (Jackson) public Map<String, Object>
-	 * restaurantArea(
-	 * 
-	 * @RequestParam(value="areaCode", required=false) String areaCode,
-	 * 
-	 * @RequestParam(value="pageNum", defaultValue="1") String pageNum) { // 1. 서비스
-	 * 호출 (나중에 만드실 부분) // areacode가 없거나 빈 값일 때의 처리 로직을 서비스에 맡기거나 여기서 분기합니다.
-	 * Map<String, Object> resultMap =
-	 * adminService.getRestaurantArea(areaCode,pageNum); // 2. 결과 반환 (Jackson 라이브러리에
-	 * 의해 자동으로 JSON 포맷으로 변환됨) return resultMap; }
-	 */
-	
-	@GetMapping("/restaurantInsert.ad")
-	public String restaurantInsert(HttpServletRequest request, HttpServletResponse response,Model model)
-		throws ServletException, IOException {
-		logger.info("<<< url => /restaurantInsert.ad >>>");
-		return "admin/place/restaurantInsert";
-	}
-	
-	@PostMapping("/restaurantInsertAction.ad")
-	public String restaurantInsertAction(MultipartHttpServletRequest request, HttpServletResponse response,Model model)
-		throws ServletException, IOException {
-		logger.info("<<< url => /restaurantInsertAction.ad >>>");
-		adminService.getRestaurantInsert(request, response, model);
-		return "admin/place/restaurantInsertAction";
-	}
-	
-	@GetMapping("/restaurantModify.ad")
-	public String restaurantModify(HttpServletRequest request, HttpServletResponse response,Model model)
-		throws ServletException, IOException {
-		logger.info("<<< url => /restaurantModify.ad >>>");
-		adminService.getRestaurantDetail(request, response, model);
-		return "admin/place/restaurantModify";
-	}
-	
-	@PostMapping("/restaurantModifyAction.ad")
-	public String restaurantModifyAction(MultipartHttpServletRequest request, HttpServletResponse response,Model model)
-		throws ServletException, IOException {
-		logger.info("<<< url => /restaurantModifyAction.ad >>>");
-		adminService.getRestaurantUpdateAction(request, response, model);
-		adminService.getRestaurantDetail(request, response, model);
-		return "admin/place/restaurantModifyAction";
-	}
-	
-	@GetMapping("/restaurantDeleteAction.ad")
-	public String restaurantDeleteAction(HttpServletRequest request, Model model) 
-	        throws ServletException, IOException {
-	    
-	    logger.info("<<< url => /restaurantDeleteAction.ad >>>");
-	    
-	    // 1. 삭제 서비스 호출 (여기서 model에 담아준 값을 나중에 꺼내 씁니다)
-	    adminService.getRestaurantDeleteAction(request, null, model);
-	    
-	    // 2. 서비스에서 model에 담아둔 파라미터 꺼내기
-	    String pageNum = (String) model.asMap().get("pageNum");
-	    String areaCode = (String) model.asMap().get("areaCode");
-	    
-	    // 3. [해결사] redirect를 사용하여 목록 컨트롤러(/restaurant.ad)를 다시 실행하게 함
-	    // 이렇게 하면 주소창이 정화되어 페이징 오류가 사라지고, 리스트도 다시 불러옵니다.
-	    return "redirect:/restaurant.ad?pageNum=" + pageNum + "&areaCode=" + areaCode;
-	}
-	
-	@RequestMapping("/start_1.ad")
-	public String start_1(HttpServletRequest request, HttpServletResponse response,Model model)
-			throws ServletException, IOException {
-		logger.info("<<< url => mapTest >>> ");
-		return"admin/place/restaurant_publicdata";
-	}
-	
-	@ResponseBody
-	@RequestMapping("/start_1_test.ad")
-	public String start_1_test(HttpServletRequest request, HttpServletResponse response, Model model) 
-	        throws ServletException, IOException {
-	    
-	    // 서비스 하나가 목록 저장 + 이미지 저장까지 다 하도록 시킵니다.
-	    adminService.testRegister(request, response, model);
-	    
-	    return String.valueOf(model.asMap().get("countPlace"));
-	}
+
 }

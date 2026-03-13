@@ -90,7 +90,7 @@
 	<script type="text/javascript">
 		setTimeout(function(){
 			alert("맛집수정 실패!!");
-			window.location="${path}/restaurantModify.ad?place_id=${pdto.place_id}&pageNum=${hiddenPageNum}&areaCode=${areaCode}";
+			window.location="${path}/restaurantModify.ad?place_id=${pDto.place_id}&pageNum=${hiddenPageNum}&areaCode=${areaCode}";
 		},1000);
 	</script>
 </c:if>
@@ -131,7 +131,7 @@
                         </div>
                         
                         <form action="${path}/restaurantModifyAction.ad" method="post" enctype="multipart/form-data" name="updateForm">
-                            <input type="hidden" name="oldImg" value="${pdto.image_url}">
+                            <input type="hidden" name="oldImg" value="${pDto.image_url}">
                             <input type="hidden" name="pageNum" value="${pageNum}">
                             <input type="hidden" name="areaCode" value="${areaCode}">
                             
@@ -139,12 +139,12 @@
                                 <div class="row g-4">
                                     <div class="col-md-4">
                                         <label class="form-label">장소 번호</label>
-                                        <input type="text" name="place_id" class="form-control" value="${pdto.place_id}" readonly>
+                                        <input type="text" name="place_id" class="form-control" value="${pDto.place_id}" readonly>
                                     </div>
 
                                     <div class="col-md-8">
                                         <label class="form-label">맛집 이름</label>
-                                        <input type="text" name="pdName" class="form-control" value="${pdto.name}" required>
+                                        <input type="text" name="pdName" class="form-control" value="${pDto.name}" required>
                                     </div>
 
                                     <div class="col-md-6">
@@ -155,30 +155,35 @@
 
                                     <div class="col-md-6">
                                         <label class="form-label">지역 선택</label>
-                                        <select name="areaCode" class="form-select" required>
-                                            <option value="1" ${rdto.areaCode == '1' ? 'selected' : ''}>서울</option>
-                                            <option value="2" ${rdto.areaCode == '2' ? 'selected' : ''}>인천</option>
-                                            <option value="31" ${rdto.areaCode == '31' ? 'selected' : ''}>경기</option>
-                                            <option value="4" ${rdto.areaCode == '4' ? 'selected' : ''}>대구</option>
-                                            <option value="6" ${rdto.areaCode == '6' ? 'selected' : ''}>부산</option>
-                                        </select>
+                                        <select name="areaCode" id="areaCodeSelect" class="form-select" required onchange="updateAddressGuide()">
+									        <option value="" ${empty (dto.areaCode or param.areaCode) ? 'selected' : ''}>지역을 선택하세요</option>
+									        <option value="1" ${(areaCode == '1' or param.areaCode == '1') ? 'selected' : ''}>서울</option>
+									        <option value="31" ${(areaCode == '31' or param.areaCode == '31') ? 'selected' : ''}>경기</option>
+									        <option value="2" ${(areaCode == '2' or param.areaCode == '2') ? 'selected' : ''}>인천</option>
+									        <option value="6" ${(areaCode == '6' or param.areaCode == '6') ? 'selected' : ''}>부산</option>
+									        <option value="4" ${(areaCode == '4' or param.areaCode == '4') ? 'selected' : ''}>대구</option>
+									        <option value="3" ${(areaCode == '3' or param.areaCode == '3') ? 'selected' : ''}>대전</option>
+									        <option value="5" ${(areaCode == '5' or param.areaCode == '5') ? 'selected' : ''}>광주</option>
+									        <option value="7" ${(areaCode == '7' or param.areaCode == '7') ? 'selected' : ''}>울산</option>
+									        <option value="39" ${(areaCode == '39' or param.areaCode == '39') ? 'selected' : ''}>제주</option>
+									    </select>
                                     </div>
 
                                     <div class="col-md-12">
                                         <label class="form-label">주소</label>
                                         <div class="input-group mb-2">
-                                            <input type="text" id="address" name="address" class="form-control" value="${pdto.address}">
+                                            <input type="text" id="address" name="address" class="form-control" value="${pDto.address}">
                                             <button type="button" class="btn btn-dark" onclick="execPostcode()">주소 재검색</button>
                                         </div>
                                         <input type="text" id="address_detail" name="address_detail" class="form-control" placeholder="상세 주소 (예: 건물 명, 층, 호수)"> 
                                         
-                                        <input type="hidden" id="latitude" name="latitude" value="${pdto.latitude}">
-                                        <input type="hidden" id="longitude" name="longitude" value="${pdto.longitude}">
+                                        <input type="hidden" id="latitude" name="latitude" value="${pDto.latitude}">
+                                        <input type="hidden" id="longitude" name="longitude" value="${pDto.longitude}">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class="form-label">전화번호</label>
-                                        <input type="text" name="phone" class="form-control" value="${rdto.phone}" placeholder="번호를 수정해주세요">
+                                        <input type="text" name="phone" class="form-control" value="${rDto.phone}" placeholder="번호를 수정해주세요">
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">음식점 카테고리</label>
@@ -192,21 +197,21 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">주차 가능 여부</label>
-                                        <input type="text" name="parking" class="form-control" value="${rdto.parking}">
+                                        <input type="text" name="parking" class="form-control" value="${rDto.parking}">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label">영업시간</label>
-                                        <input type="text" name="opentime" class="form-control" value="${rdto.opentime}">
+                                        <input type="text" name="opentime" class="form-control" value="${rDto.opentime}">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">휴무일</label>
-                                        <input type="text" name="restdate" class="form-control" value="${rdto.restdate}">
+                                        <input type="text" name="restdate" class="form-control" value="${rDto.restdate}">
                                     </div>
 
                                     <div class="col-md-12">
                                         <label class="form-label">상세 소개</label>
-                                        <textarea name="pdContent" class="form-control" rows="4">${rdto.description}</textarea>
+                                        <textarea name="pdContent" class="form-control" rows="4">${rDto.description}</textarea>
                                     </div>
 
                                     <div class="col-md-12">
