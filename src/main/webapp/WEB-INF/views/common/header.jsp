@@ -55,7 +55,7 @@
 	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/restaurant.rs">맛집</a></li>
 	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/accommodation.ac">숙소</a></li>
 	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/festival.fe">축제</a></li>
-	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/community.co">커뮤니티</a></li>
+	        <li class="nav-item"><a class="nav-link fw-semibold" href="${path}/community_free.co">커뮤니티</a></li>
 			
 	        <!-- 더보기 드롭다운 -->
 	        <li class="nav-item dropdown">
