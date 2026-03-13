@@ -19,6 +19,17 @@ SELECT *
   FROM FESTIVAL
  WHERE FESTIVAL_ID = 417;
 
+-- 축제 티켓 조회
+SELECT
+	    ticket_id,
+	    festival_id,
+	    ticket_type,
+	    price,
+	    stock,
+	    description
+  FROM  FESTIVAL_TICKET
+ WHERE  festival_id = 1009;
+
 -----------------------------------------
 -- 축제 등록 시 문제가 생길 때 체크 
 -- PLACE 테이블의 place_id 최댓값 확인

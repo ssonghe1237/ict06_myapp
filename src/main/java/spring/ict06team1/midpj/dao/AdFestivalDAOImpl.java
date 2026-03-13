@@ -34,9 +34,9 @@ public class AdFestivalDAOImpl implements AdFestivalDAO{
 	
 	// 티켓 상세 정보 조회
 	@Override
-	public FestivalTicketDTO getTicketDetail(int festival_id, String ticket_type) {
+	public List<FestivalTicketDTO> getFestivalTickets(int festival_id){
 		System.out.println("[AdFestivalDAOImpl - getTicketDetail()]");
-		return null;
+		return sqlSession.getMapper(AdFestivalDAO.class).getFestivalTickets(festival_id);
 	}
 
 	// 전체 축제 건수 조회(페이징용)

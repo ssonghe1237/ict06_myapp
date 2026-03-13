@@ -77,13 +77,26 @@ public class AdFestivalServiceImpl implements AdFestivalService{
 		// 2-1) FestivalDTO 조회
 		FestivalDTO festivalDTO = dao.getFestivalDetail(festival_id); 
 		// System.out.println("festivalDTO" + festivalDTO);
-		System.out.println(festivalDTO.getPlaceDTO().getName());
 		
-		// 2-2) (있다면) FestivalTicketDTO 조회 
+		// 2-2) FestivalTicketDTO 조회 
+		List<FestivalTicketDTO> ticketList = dao.getFestivalTickets(festival_id); 
+		System.out.println(ticketList);
 		
+		Map<String, FestivalTicketDTO> ticketMap = new HashMap<>();
+
+		for(FestivalTicketDTO ticket : ticketList){
+		    ticketMap.put(ticket.getTicket_type(), ticket);
+		}
+		
+		// 2-3) FestivalDTO에 세팅
+		festivalDTO.setTicketList(ticketList);
 		
 		// 3) Model에 담아서 jsp로 전달
 		model.addAttribute("festivalDTO", festivalDTO); 
+		model.addAttribute("freeTicket", ticketMap.get("Free"));
+		model.addAttribute("oneDayTicket", ticketMap.get("OneDay"));
+		model.addAttribute("twoDayTicket", ticketMap.get("TwoDay"));
+		model.addAttribute("allDayTicket", ticketMap.get("AllDay"));
 	}
 
 	// 축제 정보 수정

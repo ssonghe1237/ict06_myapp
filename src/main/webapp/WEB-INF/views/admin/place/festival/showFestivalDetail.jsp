@@ -77,13 +77,15 @@
 	                	<!-- 축제 이미지 URL 시작 -->
 	                	<tr>
                 			<th><label for="inputImgAddress">축제 이미지 웹주소</label></th>
-                			<td>${festivalDTO.placeDTO.image_url}</td>
+                			<td>
+                				<%-- ${festivalDTO.placeDTO.image_url}<br> --%>
+                				<img src="${festivalDTO.placeDTO.image_url}" style="width: 25%; height: auto;">
+                			</td>
                 		</tr>
 	                	<!-- 축제 이미지 URL 끝 -->
 	                	<!-- 축제 설명 시작 -->
 	                	<tr>
                 			<th><label for="inputDescription">축제 설명</label></th>
-                			<%-- <td><textarea cols="50" rows="10" readonly>${festivalDTO.description}</textarea></td> --%>
                 			<td><div style="white-space: pre-wrap;">${festivalDTO.description}</div></td>
                 		</tr>
 	                	<!-- 축제 설명 끝 -->
@@ -116,33 +118,33 @@
 		                			<!-- 무료 티켓 시작 -->
 		                			<tr>
 		                				<td>무료</td>
-		                				<td>원</td>
-		                				<td></td>
-		                				<td></td>
+		                				<td>${freeTicket.price}원</td>
+		                				<td>${freeTicket.stock}</td>
+		                				<td>${freeTicket.description}</td>
 		                			</tr>
 		                			<!-- 무료 티켓 끝 -->
 		                			<!-- 1일권 시작 -->
 		                			<tr>
 		                				<td>1일권</td>
-		                				<td>원</td>
-		                				<td></td>
-		                				<td></td>
+		                				<td>${oneDayTicket.price}원</td>
+		                				<td>${oneDayTicket.stock}</td>
+		                				<td>${oneDayTicket.description}</td>
 	                				</tr>
 		                			<!-- 1일권 끝 -->
 		                			<!-- 2일권 시작 -->
 		                			<tr>
 		                				<td>2일권</td>
-		                				<td>원</td>
-		                				<td></td>
-		                				<td></td>
+		                				<td>${twoDayTicket.price}원</td>
+		                				<td>${twoDayTicket.stock}</td>
+		                				<td>${twoDayTicket.description}</td>
 	                				</tr>
 		                			<!-- 2일권 끝 -->
 		                			<!-- 전일권 시작 -->
 		                			<tr>
 		                				<td>전일권</td>
-		                				<td>원</td>
-		                				<td></td>
-		                				<td></td>
+		                				<td>${allDayTicket.price}원</td>
+		                				<td>${allDayTicket.stock}</td>
+		                				<td>${allDayTicket.description}</td>
 	                				</tr>
 		                			<!-- 전일권 끝 -->
 			                	</table>
@@ -172,6 +174,36 @@
 		<!-- &gt; : > 표시 -->
 		<div>
 			<pre><code>
+					SELECT
+							F.festival_id,
+							F.description,
+							F.start_date,
+							F.end_date,
+							F.status,
+							P.place_id,
+							P.place_type,
+							P.name,
+							P.address,
+							P.view_count,
+							P.latitude,
+							P.longitude,
+							P.image_url,
+							P.created_at
+					FROM 	FESTIVAL F
+					LEFT JOIN PLACE P
+					ON F.festival_id = P.place_id
+					WHERE F.festival_id = #${'{'}festival_id}
+					
+					
+					SELECT
+						    ticket_id,
+						    festival_id,
+						    ticket_type,
+						    price,
+						    stock,
+						    description
+					  FROM  FESTIVAL_TICKET
+					 WHERE  festival_id = #${'{'}festival_id}
 			</code></pre>
 		</div>
 		<!-- 관련 SQL 끝 -->

@@ -94,6 +94,19 @@
 		WHERE F.festival_id = #{festival_id}
 	</select>
 	
+	<!-- 축제 티켓 상세 조회 -->
+	<select id="getFestivalTickets" parameterType="int" resultType="spring.ict06team1.midpj.dto.FestivalTicketDTO">
+		SELECT
+			    ticket_id,
+			    festival_id,
+			    ticket_type,
+			    price,
+			    stock,
+			    description
+		  FROM  FESTIVAL_TICKET
+		 WHERE  festival_id = #{festival_id}
+	</select>
+	
 	<!-- 전체 축제 건수 조회(페이징용) -->
 	<select id="getFestivalCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)

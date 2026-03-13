@@ -17,7 +17,7 @@ public interface AdFestivalDAO {
 	public FestivalDTO getFestivalDetail(int festival_id); 
 	
 	// 티켓 상세 정보 조회
-	public FestivalTicketDTO getTicketDetail(int festival_id, String ticket_type); 
+	public List<FestivalTicketDTO> getFestivalTickets(int festival_id); 
 	
 	// 전체 축제 건수 조회(페이징용)
 	public int getFestivalCount(Map<String,Object> map);
